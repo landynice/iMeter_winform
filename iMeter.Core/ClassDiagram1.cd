@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="iMeter.BaseClass.Frame645" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="iMeter.BaseClass.Frame645.Func" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>BaseClass\Frame645.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="iMeter.BaseClass.Frame645.ErrStyle" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>BaseClass\Frame645.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="iMeter.BaseClass.Frame645.SerrStyle" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>BaseClass\Frame645.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>GABCEgAQEQQZ9MgAJSBKEgIGAAAqOhgjACQQpARAMBA=</HashCode>
+      <FileName>BaseClass\Frame645.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

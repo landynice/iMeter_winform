@@ -1,0 +1,377 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5EFAE870-4E69-4E98-98DD-30E0C9B0DEF2}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>iMeter</RootNamespace>
+    <AssemblyName>iMeter</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>966CD694A854371C676750CD22CF5430705EF99C</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>iMeter_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AboutBox1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox1.Designer.cs">
+      <DependentUpon>AboutBox1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\Esam645Service\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Usercontrols\PanelBroadSetTimeTest.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Usercontrols\PanelBroadSetTimeTest.Designer.cs">
+      <DependentUpon>PanelBroadSetTimeTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Usercontrols\PanelEnergyTest.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Usercontrols\PanelEnergyTest.Designer.cs">
+      <DependentUpon>PanelEnergyTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Usercontrols\PanelEsamAndCtrol.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Usercontrols\PanelEsamAndCtrol.Designer.cs">
+      <DependentUpon>PanelEsamAndCtrol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Usercontrols\PanelEventTest.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Usercontrols\PanelEventTest.Designer.cs">
+      <DependentUpon>PanelEventTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Usercontrols\PanelFreezeTest.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Usercontrols\PanelFreezeTest.Designer.cs">
+      <DependentUpon>PanelFreezeTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Usercontrols\PanelInfinitTest.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Usercontrols\PanelInfinitTest.Designer.cs">
+      <DependentUpon>PanelInfinitTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Usercontrols\PanelLoadRecord.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Usercontrols\PanelLoadRecord.Designer.cs">
+      <DependentUpon>PanelLoadRecord.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Usercontrols\PanelOftenUsePara.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Usercontrols\PanelOftenUsePara.Designer.cs">
+      <DependentUpon>PanelOftenUsePara.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Usercontrols\PanelReadData.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Usercontrols\PanelReadData.Designer.cs">
+      <DependentUpon>PanelReadData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Usercontrols\PanelSpecialCommand.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Usercontrols\PanelSpecialCommand.Designer.cs">
+      <DependentUpon>PanelSpecialCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Usercontrols\PanelStatePara.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Usercontrols\PanelStatePara.Designer.cs">
+      <DependentUpon>PanelStatePara.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Usercontrols\PanelTimeZoneTest.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Usercontrols\PanelTimeZoneTest.Designer.cs">
+      <DependentUpon>PanelTimeZoneTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Usercontrols\PanelProtocol698.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Usercontrols\PanelProtocol698.Designer.cs">
+      <DependentUpon>PanelProtocol698.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Usercontrols\PanelReadWriteAndDisp.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Usercontrols\PanelReadWriteAndDisp.Designer.cs">
+      <DependentUpon>PanelReadWriteAndDisp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestMethod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestMethod.Designer.cs">
+      <DependentUpon>TestMethod.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AboutBox1.resx">
+      <DependentUpon>AboutBox1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Usercontrols\PanelBroadSetTimeTest.resx">
+      <DependentUpon>PanelBroadSetTimeTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Usercontrols\PanelEnergyTest.resx">
+      <DependentUpon>PanelEnergyTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Usercontrols\PanelEsamAndCtrol.resx">
+      <DependentUpon>PanelEsamAndCtrol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Usercontrols\PanelEventTest.resx">
+      <DependentUpon>PanelEventTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Usercontrols\PanelFreezeTest.resx">
+      <DependentUpon>PanelFreezeTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Usercontrols\PanelInfinitTest.resx">
+      <DependentUpon>PanelInfinitTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Usercontrols\PanelLoadRecord.resx">
+      <DependentUpon>PanelLoadRecord.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Usercontrols\PanelOftenUsePara.resx">
+      <DependentUpon>PanelOftenUsePara.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Usercontrols\PanelReadData.resx">
+      <DependentUpon>PanelReadData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Usercontrols\PanelSpecialCommand.resx">
+      <DependentUpon>PanelSpecialCommand.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Usercontrols\PanelStatePara.resx">
+      <DependentUpon>PanelStatePara.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Usercontrols\PanelTimeZoneTest.resx">
+      <DependentUpon>PanelTimeZoneTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Usercontrols\PanelProtocol698.resx">
+      <DependentUpon>PanelProtocol698.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Usercontrols\PanelReadWriteAndDisp.resx">
+      <DependentUpon>PanelReadWriteAndDisp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestMethod.resx">
+      <DependentUpon>TestMethod.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Service References\Esam645Service\EsamOptionService.wsdl" />
+    <None Include="Service References\Esam645Service\EsamService.wsdl" />
+    <None Include="Service References\Esam645Service\EsamService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Esam645Service\EsamService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Esam645Service\EsamService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Esam645Service\iMeter.Esam645Service.EncMacWrite.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Esam645Service\iMeter.Esam645Service.IdentityAuthenticationData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Esam645Service\iMeter.Esam645Service.InCreasePurseData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Esam645Service\iMeter.Esam645Service.InintPurseData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Esam645Service\iMeter.Esam645Service.MacData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Esam645Service\iMeter.Esam645Service.ReadPresetCard.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="logo.ico" />
+    <None Include="Service References\Esam645Service\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\Esam645Service\configuration.svcinfo" />
+    <None Include="Service References\Esam645Service\configuration91.svcinfo" />
+    <None Include="Service References\Esam645Service\EsamService.disco" />
+    <None Include="Resources\scrabble_m_48px_1093150_easyicon.net.png" />
+    <None Include="Resources\M_31px_1120899_easyicon.net.png" />
+    <None Include="Resources\exit_quit_24px_16971_easyicon.net.png" />
+    <None Include="Resources\error_26px_1172434_easyicon.net.png" />
+    <None Include="Resources\adept_refresh_reload_renew_update_32px_156_easyicon.net.png" />
+    <None Include="Resources\about_26px_1172236_easyicon.net.png" />
+    <None Include="Resources\gear_26px_1133400_easyicon.net.png" />
+    <None Include="Resources\read_more_32px_1069689_easyicon.net.png" />
+    <None Include="Resources\setting.png" />
+    <None Include="Resources\dot_red_299px_1174475_easyicon.net.png" />
+    <None Include="Resources\dot_green_299px_1174477_easyicon.net.png" />
+    <None Include="Resources\Conversion_Dot_128px_1072786_easyicon.net.png" />
+    <None Include="Resources\cog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\Esam645Service\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Protocol.Core\Protocol.Core.csproj">
+      <Project>{11fc8c7c-3671-4bf1-8061-69981482362b}</Project>
+      <Name>Protocol.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PublicFunction\PublicFunction.csproj">
+      <Project>{a60c5d11-e2b7-4aa5-84c4-815e3a0b3aea}</Project>
+      <Name>PublicFunction</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

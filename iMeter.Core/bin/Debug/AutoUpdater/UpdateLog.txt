@@ -1,0 +1,76 @@
+﻿2016-9-18 9:41:48:Update starting. There is 12 files to be updated ......
+
+
+2016-9-18 9:41:50 : 高 －－ 文件“D:\iMeter\WindowsFormsApplication5\bin\Debug\\iMeter.vshost.exe”正由另一进程使用，因此该进程无法访问该文件。 [:]    在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite)
+   在 System.IO.File.Copy(String sourceFileName, String destFileName, Boolean overwrite)
+   在 AutoUpdater.Updater.FileReceivingEvents_FileTransCompleted(TransferingProject obj) 。错误类型:System.IO.IOException。位置：AutoUpdater.Updater.UdpateThread
+
+2016-9-18 9:41:50:Update Failed！Cause：InnerError。
+
+2016-9-18 9:43:46:Update starting. There is 12 files to be updated ......
+
+
+2016-9-18 9:43:48 : 高 －－ 文件“D:\iMeter\WindowsFormsApplication5\bin\Debug\\iMeter.vshost.exe”正由另一进程使用，因此该进程无法访问该文件。 [:]    在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite)
+   在 System.IO.File.Copy(String sourceFileName, String destFileName, Boolean overwrite)
+   在 AutoUpdater.Updater.FileReceivingEvents_FileTransCompleted(TransferingProject obj) 。错误类型:System.IO.IOException。位置：AutoUpdater.Updater.UdpateThread
+
+2016-9-18 9:43:48:Update Failed！Cause：InnerError。
+
+2016-9-18 10:08:08:Update starting. There is 12 files to be updated ......
+
+
+2016-9-18 10:08:10 : 高 －－ 文件“D:\iMeter\WindowsFormsApplication5\bin\Debug\\iMeter.vshost.exe”正由另一进程使用，因此该进程无法访问该文件。 [:]    在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite)
+   在 System.IO.File.Copy(String sourceFileName, String destFileName, Boolean overwrite)
+   在 AutoUpdater.Updater.FileReceivingEvents_FileTransCompleted(TransferingProject obj) 。错误类型:System.IO.IOException。位置：AutoUpdater.Updater.UdpateThread
+
+2016-9-18 10:08:10:Update Failed！Cause：InnerError。
+
+2016-9-18 10:15:25:Update starting. There is 12 files to be updated ......
+
+2016-9-18 10:16:06:Update starting. There is 11 files to be updated ......
+
+
+2016-9-18 10:16:07 : 高 －－ 对路径“D:\iMeter\WindowsFormsApplication5\bin\Debug\iMeter.vshost.exe”的访问被拒绝。 [:]    在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.File.Delete(String path)
+   在 ESBasic.Helpers.FileHelper.DeleteFile(String filePath)
+   在 AutoUpdater.Updater.FileReceivingEvents_FileTransCompleted(TransferingProject obj) 。错误类型:System.UnauthorizedAccessException。位置：AutoUpdater.Updater.UdpateThread
+
+2016-9-18 10:16:07:Update Failed！Cause：InnerError。
+
+2016-9-18 10:16:49:Update starting. There is 9 files to be updated ......
+
+
+2016-9-18 10:16:50 : 高 －－ 对路径“D:\iMeter\WindowsFormsApplication5\bin\Debug\iMeter.vshost.exe”的访问被拒绝。 [:]    在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.File.Delete(String path)
+   在 ESBasic.Helpers.FileHelper.DeleteFile(String filePath)
+   在 AutoUpdater.Updater.FileReceivingEvents_FileTransCompleted(TransferingProject obj) 。错误类型:System.UnauthorizedAccessException。位置：AutoUpdater.Updater.UdpateThread
+
+2016-9-18 10:16:50:Update Failed！Cause：InnerError。
+
+2016-9-18 10:17:57:Update starting. There is 10 files to be updated ......
+
+
+2016-9-18 10:17:58 : 高 －－ 对路径“D:\iMeter\WindowsFormsApplication5\bin\Debug\iMeter.vshost.exe”的访问被拒绝。 [:]    在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.File.Delete(String path)
+   在 ESBasic.Helpers.FileHelper.DeleteFile(String filePath)
+   在 AutoUpdater.Updater.FileReceivingEvents_FileTransCompleted(TransferingProject obj) 。错误类型:System.UnauthorizedAccessException。位置：AutoUpdater.Updater.UdpateThread
+
+2016-9-18 10:17:58:Update Failed！Cause：InnerError。
+
+2016-9-18 10:19:37:Update starting. There is 1 files to be updated ......
+
+
+2016-9-18 10:19:37 : 高 －－ 对路径“D:\iMeter\WindowsFormsApplication5\bin\Debug\iMeter.vshost.exe”的访问被拒绝。 [:]    在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.File.Delete(String path)
+   在 ESBasic.Helpers.FileHelper.DeleteFile(String filePath)
+   在 AutoUpdater.Updater.FileReceivingEvents_FileTransCompleted(TransferingProject obj) 。错误类型:System.UnauthorizedAccessException。位置：AutoUpdater.Updater.UdpateThread
+
+2016-9-18 10:19:37:Update Failed！Cause：InnerError。
+
+2016-9-18 11:29:35:Update starting. There is 5 files to be updated ......
+
+2016-9-18 11:29:36:Update completed！
+

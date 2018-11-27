@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Data698>
+  <Data>
+    <Type_0 Mark="0" Define="NULL" />
+    <Type_1 Mark="1" Define="array" />
+    <Type_2 Mark="2" Define="structure" />
+    <Type_3 Mark="3" Define="bool" />
+    <Type_4 Mark="4" Define="bit-string" />
+    <Type_5 Mark="5" Define="double-long" />
+    <Type_6 Mark="6" Define="double-long-unsigned" />
+    <Type_9 Mark="9" Define="octet-string" />
+    <Type_10 Mark="10" Define="visible-string" />
+    <Type_12 Mark="12" Define="UTF8-string" />
+    <Type_15 Mark="15" Define="integer" />
+    <Type_16 Mark="16" Define="long" />
+    <Type_17 Mark="17" Define="unsigned" />
+    <Type_18 Mark="18" Define="long-unsigned" />
+    <Type_20 Mark="20" Define="long64" />
+    <Type_21 Mark="21" Define="long64-unsigned" />
+    <Type_22 Mark="22" Define="enum" />
+    <Type_23 Mark="23" Define="float32" />
+    <Type_24 Mark="24" Define="float64" />
+    <Type_25 Mark="25" Define="date_time" />
+    <Type_26 Mark="26" Define="date" />
+    <Type_27 Mark="27" Define="time" />
+    <Type_28 Mark="28" Define="date_time_s" />
+    <Type_80 Mark="80" Define="OI" />
+    <Type_81 Mark="81" Define="OAD" />
+    <Type_82 Mark="82" Define="ROAD" />
+    <Type_83 Mark="83" Define="OMD" />
+    <Type_84 Mark="84" Define="TI" />
+    <Type_85 Mark="85" Define="TSA" />
+    <Type_86 Mark="86" Define="MAC" />
+    <Type_87 Mark="87" Define="RN" />
+    <Type_88 Mark="88" Define="Region" />
+    <Type_89 Mark="89" Define="Scaler_Unit" />
+    <Type_90 Mark="90" Define="RSD" />
+    <Type_91 Mark="91" Define="CSD" />
+    <Type_92 Mark="92" Define="MS" />
+    <Type_93 Mark="93" Define="SID" />
+    <Type_94 Mark="94" Define="SID_MAC" />
+    <Type_95 Mark="95" Define="COMDCB" />
+    <Type_96 Mark="96" Define="RCSD" />
+  </Data>
+  <DAR>
+    <Dar_0 Mark="0" Define="成功" />
+    <Dar_1 Mark="1" Define="硬件失效" />
+    <Dar_2 Mark="2" Define="暂时失效" />
+    <Dar_3 Mark="3" Define="拒绝读写" />
+    <Dar_4 Mark="4" Define="对象未定义" />
+    <Dar_5 Mark="5" Define="对象接口类不符合" />
+    <Dar_6 Mark="6" Define="对象不存在" />
+    <Dar_7 Mark="7" Define="类型不匹配" />
+    <Dar_8 Mark="8" Define="越界" />
+    <Dar_9 Mark="9" Define="数据块不可用" />
+    <Dar_10 Mark="10" Define="分帧传输已取消" />
+    <Dar_11 Mark="11" Define="不处于分帧传输状态" />
+    <Dar_12 Mark="12" Define="块写取消" />
+    <Dar_13 Mark="13" Define="不存在块写状态" />
+    <Dar_14 Mark="14" Define="数据块序号无效" />
+    <Dar_15 Mark="15" Define="密码错/未授权" />
+    <Dar_16 Mark="16" Define="通信速率不能更改" />
+    <Dar_17 Mark="17" Define="年时区数超" />
+    <Dar_18 Mark="18" Define="日时段数超" />
+    <Dar_19 Mark="19" Define="费率数超" />
+    <Dar_20 Mark="20" Define="安全认证不匹配" />
+    <Dar_21 Mark="21" Define="重复充值" />
+    <Dar_22 Mark="22" Define="ESAM验证失败" />
+    <Dar_23 Mark="23" Define="安全认证失败" />
+    <Dar_24 Mark="24" Define="客户编号不匹配" />
+    <Dar_25 Mark="25" Define="充值次数错误" />
+    <Dar_26 Mark="26" Define="购电超囤积" />
+    <Dar_27 Mark="27" Define="地址异常" />
+    <Dar_28 Mark="28" Define="对称解密错误" />
+    <Dar_29 Mark="29" Define="非对称解密错误" />
+    <Dar_30 Mark="30" Define="签名错误" />
+    <Dar_31 Mark="31" Define="电能表挂起" />
+    <Dar_32 Mark="32" Define="时间标签无效" />
+    <Dar_33 Mark="33" Define="请求超时" />
+    <Dar_255 Mark="255" Define="其它" />
+  </DAR>
+</Data698>

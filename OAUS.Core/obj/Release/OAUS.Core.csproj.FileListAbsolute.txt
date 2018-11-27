@@ -1,0 +1,12 @@
+D:\iMeter\WindowsFormsApplication5\OAUS.Core\obj\Release\ResolveAssemblyReference.cache
+D:\iMeter\WindowsFormsApplication5\OAUS.Core\bin\Release\OAUS.Core.dll
+D:\iMeter\WindowsFormsApplication5\OAUS.Core\bin\Release\OAUS.Core.pdb
+D:\iMeter\WindowsFormsApplication5\OAUS.Core\bin\Release\ESBasic.dll
+D:\iMeter\WindowsFormsApplication5\OAUS.Core\obj\Release\OAUS.Core.dll
+D:\iMeter\WindowsFormsApplication5\OAUS.Core\obj\Release\OAUS.Core.pdb
+D:\newiMeter\iMeter\WindowsFormsApplication5\OAUS.Core\bin\Release\OAUS.Core.dll
+D:\newiMeter\iMeter\WindowsFormsApplication5\OAUS.Core\bin\Release\OAUS.Core.pdb
+D:\newiMeter\iMeter\WindowsFormsApplication5\OAUS.Core\bin\Release\ESBasic.dll
+D:\newiMeter\iMeter\WindowsFormsApplication5\OAUS.Core\obj\Release\ResolveAssemblyReference.cache
+D:\newiMeter\iMeter\WindowsFormsApplication5\OAUS.Core\obj\Release\OAUS.Core.dll
+D:\newiMeter\iMeter\WindowsFormsApplication5\OAUS.Core\obj\Release\OAUS.Core.pdb
