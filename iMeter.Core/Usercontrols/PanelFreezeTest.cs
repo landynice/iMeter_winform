@@ -9,6 +9,7 @@ namespace iMeter
 {
     public partial class PanelFreezeTest : UserControl
     {
+        public override string Text { get => "冻结测试"; }
         private Thread TestThread;//定义线程
 
         public PanelFreezeTest()

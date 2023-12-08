@@ -9,6 +9,7 @@ namespace iMeter
 {
     public partial class PanelEventTest : UserControl
     {
+        public override string Text { get => "事件测试"; }
         private Thread TestThread;//定义线程
 
         public PanelEventTest()
@@ -63,7 +64,7 @@ namespace iMeter
             for (int m = 0; m < 10; m++)
             {
                 _10timesSetTimeEvent[m] = ReadLastNtimesRec("033004", m + 1);
-                if (_10timesSetTimeEvent[m] == "00000000000000000000000000000000")//判断是否已经清零
+                if (_10timesSetTimeEvent[m] == "00000000000000000000000000000000000000000000000000000000000000000000000000000000")//判断是否已经清零
                     setTimeEventIsOk = true;
                 else
                 {
@@ -103,24 +104,25 @@ namespace iMeter
                     else
                         txtBoxTimeSetEvent.AppendText("      读校时次数失败！\r\n");
                     //********************读上10次校时记录，检查是否记录正确*********************************
+                    string[] _10timesSetTimeEventTemp = new string[10];
                     //读10次记录
                     for (int j = 0; j < 10; j++)
                     {
-                        if (ReadLastNtimesRec("033004", j + 1) != null)
-                            txtBoxTimeSetEvent.AppendText("      上" + (j + 1).ToString("D2") + "次校时记录："
-                                + ReadLastNtimesRec("033004", j + 1) + "  成功！\r\n");
+                        var lastNtimesRec = ReadLastNtimesRec("033004", j + 1);
+                        if (lastNtimesRec != null)
+                        {
+                            txtBoxTimeSetEvent.AppendText("      上" + (j + 1).ToString("D2") + "次校时记录：" + lastNtimesRec + "  成功！\r\n");
+                            _10timesSetTimeEventTemp[j] = lastNtimesRec;
+                        }
+
                         else
                             txtBoxTimeSetEvent.AppendText("      上" + (j + 1).ToString("D2") + "次校时记录：读上"
                                 + (j + 1).ToString() + "次校时记录失败！\r\n");
                     }
                     //判断10次记录
                     //this.txtBoxTimeSetEvent.AppendText("      判断10次校时事件是否正确记录（判断上1次事件记录的校时后时间是否为所设时间、判断10次记录是否轮换正确）。。。\r\n");
-                    string[] _10timesSetTimeEventTemp = new string[10];
-                    for (int m = 0; m < 10; m++)
-                    {
-                        _10timesSetTimeEventTemp[m] = ReadLastNtimesRec("033004", m + 1);
-                    }
-                    if (ReadLastNtimesRec("033004", 1) != null && ReadLastNtimesRec("033004", 1).Substring(6, 6) == setTime)//判断第一次是否等于所设时间
+
+                    if (_10timesSetTimeEventTemp != null && _10timesSetTimeEventTemp[0].Substring(54, 6) == setTime)//判断第一次是否等于所设时间
                     {
                         for (int m = 1; m < 10; m++)
                         {

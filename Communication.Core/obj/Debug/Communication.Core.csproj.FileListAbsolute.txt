@@ -34,3 +34,12 @@ C:\Users\ly\Desktop\iMeter2_userctrl20181122\Communication.Core\bin\Debug\Public
 C:\Users\ly\Desktop\iMeter2_userctrl20181122\Communication.Core\obj\Debug\Communication.Core.csprojResolveAssemblyReference.cache
 C:\Users\ly\Desktop\iMeter2_userctrl20181122\Communication.Core\obj\Debug\Communication.Core.dll
 C:\Users\ly\Desktop\iMeter2_userctrl20181122\Communication.Core\obj\Debug\Communication.Core.pdb
+D:\CODE\iMeter_winform\Communication.Core\bin\Debug\Communication.Core.dll
+D:\CODE\iMeter_winform\Communication.Core\bin\Debug\Communication.Core.pdb
+D:\CODE\iMeter_winform\Communication.Core\bin\Debug\PublicFunction.dll
+D:\CODE\iMeter_winform\Communication.Core\bin\Debug\PublicFunction.pdb
+D:\CODE\iMeter_winform\Communication.Core\obj\Debug\Communication.Core.csproj.AssemblyReference.cache
+D:\CODE\iMeter_winform\Communication.Core\obj\Debug\Communication.Core.csproj.CoreCompileInputs.cache
+D:\CODE\iMeter_winform\Communication.Core\obj\Debug\Communication.Core.csproj.CopyComplete
+D:\CODE\iMeter_winform\Communication.Core\obj\Debug\Communication.Core.dll
+D:\CODE\iMeter_winform\Communication.Core\obj\Debug\Communication.Core.pdb

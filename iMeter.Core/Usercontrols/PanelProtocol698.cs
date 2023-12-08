@@ -5,12 +5,18 @@ using System.Windows.Forms;
 using System.Threading;
 using PublicFunction;
 using Protocol.Core;
+using System.Collections.Generic;
+using ComboBox = System.Windows.Forms.ComboBox;
+using TextBox = System.Windows.Forms.TextBox;
+using System.Xml;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace iMeter
 {
     public partial class PanelProtocol698 : UserControl
     {
-        private Thread TestThread;//定义线程
+        public override string Text { get => "通信压力测试"; }
         public PanelProtocol698()
         {
             InitializeComponent();
@@ -22,7 +28,6 @@ namespace iMeter
             ckbAutoCalcChk_CheckedChanged(sender, e);
             ckbAutoCalcLen_CheckedChanged(sender, e);
             ckbOldVerDisp_CheckedChanged(sender, e);
-            Protocol698.Addr = txt698Addr.Text;
 
             comboBoxSecurityRule.SelectedIndex = 2;
         }
@@ -63,7 +68,7 @@ namespace iMeter
 
             string frm = "";
             frm = (ckbAPDUDiv.Checked) ? (tbLen.Text + tbCtl.Text + tbAF.Text + tbSA.Text + tbCA.Text + tbHCS.Text + tbAPDU_1.Text + tbAPDU_2.Text
-                + tbAPDU_3.Text + tbAPDU_4.Text + tbAPDU_5.Text + tbAPDU_6.Text) :
+                + tbAPDU_6.Text) :
                 (tbLen.Text + tbCtl.Text + tbAF.Text + tbSA.Text + tbCA.Text + tbHCS.Text + tbAPDU.Text);
             frm = frm.Replace(" ", "").Replace("\n", "").Replace("\r", "");
 
@@ -92,9 +97,8 @@ namespace iMeter
             Functions.Delay(50);
 
             string frm = "";
-            frm = (ckbAPDUDiv.Checked) ? (tbCtl.Text + tbAF.Text + tbSA.Text + tbCA.Text + tbAPDU_1.Text + tbAPDU_2.Text
-                + tbAPDU_3.Text + tbAPDU_4.Text + tbAPDU_5.Text + tbAPDU_6.Text) :
-                (tbCtl.Text + tbAF.Text + tbSA.Text + tbCA.Text + tbAPDU.Text);
+            frm = (ckbAPDUDiv.Checked) ? (tbCtl.Text + tbAF.Text + tbSA.Text + tbCA.Text + tbAPDU_1.Text + tbAPDU_2.Text + tbAPDU_6.Text)
+                : (tbCtl.Text + tbAF.Text + tbSA.Text + tbCA.Text + tbAPDU.Text);
             frm = frm.Replace(" ", "").Replace("\n", "").Replace("\r", "");
 
             if (tbCtl.Text.Replace(" ", "").Length != 2
@@ -127,7 +131,7 @@ namespace iMeter
 
             string txString = "";
             txString = (ckbAPDUDiv.Checked) ? (tb68.Text + tbLen.Text + tbCtl.Text + tbAF.Text + tbSA.Text + tbCA.Text + tbHCS.Text + tbAPDU_1.Text + tbAPDU_2.Text
-                + tbAPDU_3.Text + tbAPDU_4.Text + tbAPDU_5.Text + tbAPDU_6.Text + tbFCS.Text + tb16.Text) :
+                + tbAPDU_6.Text + tbFCS.Text + tb16.Text) :
                 (tb68.Text + tbLen.Text + tbCtl.Text + tbAF.Text + tbSA.Text + tbCA.Text + tbHCS.Text + tbAPDU.Text + tbFCS.Text + tb16.Text);
             txString = txString.Replace(" ", "").Replace("\r", "").Replace("\n", "");
 
@@ -149,11 +153,14 @@ namespace iMeter
             string res = p698.SendAndRecv(txString);
             if (res != null && res.Length > 0)
             {
+                res = res.Substring(res.IndexOf("68"));
                 string[] frm = new string[res.Length / 2];
+
                 for (int i = 0; i < res.Length / 2; i++)
                 {
                     frm[i] = res.Substring(i * 2, 2);
                 }
+
                 int frmLen = Convert.ToInt16(frm[2] + frm[1], 16) + 2;
                 if (frmLen != frm.Length) return;
 
@@ -477,9 +484,6 @@ namespace iMeter
             {
                 tbAPDU_1.Visible = true;
                 tbAPDU_2.Visible = true;
-                tbAPDU_3.Visible = true;
-                tbAPDU_4.Visible = true;
-                tbAPDU_5.Visible = true;
                 tbAPDU_6.Visible = true;
                 tbAPDU.Visible = false;
             }
@@ -487,9 +491,6 @@ namespace iMeter
             {
                 tbAPDU_1.Visible = false;
                 tbAPDU_2.Visible = false;
-                tbAPDU_3.Visible = false;
-                tbAPDU_4.Visible = false;
-                tbAPDU_5.Visible = false;
                 tbAPDU_6.Visible = false;
                 tbAPDU.Visible = true;
             }
@@ -682,160 +683,10 @@ namespace iMeter
 
         #endregion
 
-        #region 698通信测试
-        private bool ComTest698Flag = false;
-        private string Addr = string.Empty;
-        private int SendCnt = 0;
-        private int SuccessCnt = 0;
-        private string Oads = string.Empty;
-        private void btnTest_Click(object sender, EventArgs e)
-        {
-            if (!Functions.IsNum(txtCnt.Text))
-            {
-                MessageBox.Show("测试次数请填入数字");
-                return;
-            }
-            int cnt = int.Parse(txtCnt.Text);
-            if (cnt < 0) return;
 
-            if (btnTest.Text == "开始测试")
-            {
-                Oads = txtOad.Text.Replace(" ", "").Replace("\r", "").Replace("\n", ""); ;
-                if (Oads.Length % 8 != 0)
-                {
-                    MessageBox.Show("OAD不正确！");
-                    return;
-                }
-                SendCnt = 0;
-                SuccessCnt = 0;
-                Protocol698 p698 = new Protocol698();
-                Addr = p698.ReadAddr();
-                if (Addr.Length == 0)
-                {
-                    MessageBox.Show("读表地址失败！");
-                }
-
-                ComTest698Flag = true;
-                Control.CheckForIllegalCrossThreadCalls = false;//不检查跨线程的调用是否合法
-                TestThread = new Thread(new ThreadStart(Comm698Test));
-                TestThread.IsBackground = true;
-                TestThread.Start();
-            }
-            if (btnTest.Text == "停止测试")
-            {
-                ComTest698Flag = false;
-                if (TestThread.IsAlive) //判断SetTimeEventTestThread是否存在，不能撤消一个不存在的线程，否则会引发异常
-                {
-                    TestThread.Abort(); //撤消SetTimeEventTestThread
-                }
-            }
-
-            btnTest.Text = (ComTest698Flag ? "停止测试" : "开始测试");
-        }
-
-        private void Comm698Test()
-        {
-            int oadCnt = Oads.Length / 8;
-            string[] oad = new string[oadCnt];
-            for (int i = 0; i < oadCnt; i++)
-            {
-                oad[i] = Oads.Substring(i * 8, 8);
-            }
-
-            int cnt = int.Parse(txtCnt.Text);
-            if (cnt == 0)
-            {
-                cnt = 1000000;
-            }
-
-            Protocol698 p698 = new Protocol698();
-            for (int i = 0; i < cnt; i++)
-            {
-                string txString = string.Empty;
-                txString = "681700" + "43" + (Addr.Length / 2 - 1).ToString("x2") + Addr.ReverseStr() + "10";
-                txString += GetCs(txString.Substring(2));
-                txString += "050101";
-                Random ro = new Random();
-                int rand = ro.Next(oadCnt);
-                txString += oad[rand];
-                txString += "00";
-                txString += GetCs(txString.Substring(2));
-                txString += "16";
-
-                string res = string.Empty;
-                SendCnt++;
-
-                string ret = p698.SendAndRecv(txString);
-                if (ret != null && ret.Length > 0)
-                {
-                    if (res.Length != 0)
-                    {
-                        SuccessCnt++;
-                    }
-                }
-                double rate = SuccessCnt / SendCnt * 100;
-                txtRate.Text = SuccessCnt + "/" + SendCnt + "*100% = " + rate.ToString() + "%";
-            }
-            btnTest.Text = "开始测试";
-            if (TestThread.IsAlive) //判断SetTimeEventTestThread是否存在，不能撤消一个不存在的线程，否则会引发异常
-            {
-                TestThread.Abort(); //撤消SetTimeEventTestThread
-            }
-        }
-        #endregion
-
-        private void btnReadEsamInfo_Click(object sender, EventArgs e)
-        {
-            txt698EsamSerial.Text = string.Empty;
-            txt698KeyVer.Text = string.Empty;
-            txt698CommTimeLimit.Text = string.Empty;
-            txt698CommRestTime.Text = string.Empty;
-            txt698Counter.Text = string.Empty;
-            txt698EsamVer.Text = string.Empty;
-            txt698MeterNo.Text = string.Empty;
-            txtApdu.Text = string.Empty;
-            Functions.Delay(10);
-
-            Protocol698 p698 = new Protocol698();
-            byte[] ret = p698.ReadData("F1000200" + "F1000400" + "F1000500" + "F1000600" + "F1000700" + "40020200" + "F1000300");
-            string strApdu = ret.ToHexString();
-            txtApdu.Text = strApdu;
-
-            int esamSerialNoStart = strApdu.IndexOf("F1000200") + 8 + 6;//序列号
-            txt698EsamSerial.Text = strApdu.Substring(esamSerialNoStart, 16);
-            Protocol698.SerialNo = Transfer.StrToByte(txt698EsamSerial.Text);
-
-            int keyVerStart = strApdu.IndexOf("F1000400") + 8 + 6;//对称密钥版本
-            txt698KeyVer.Text = strApdu.Substring(keyVerStart, 32);
-
-            int commLimitStart = strApdu.IndexOf("F1000500") + 8 + 4;//会话时效门限
-            txt698CommTimeLimit.Text = strApdu.Substring(commLimitStart, 8);
-
-            int commRestTimeStart = strApdu.IndexOf("F1000600") + 8 + 4;//会话时效剩余时间
-            txt698CommRestTime.Text = strApdu.Substring(commRestTimeStart, 8);
-
-            int counterStart = strApdu.IndexOf("F1000700") + 8 + 8;//当前计数器
-            txt698Counter.Text = strApdu.Substring(counterStart, 8);
-
-            int esamVerStart = strApdu.IndexOf("F1000300") + 8 + 6;//ESAM版本号
-            txt698EsamVer.Text = strApdu.Substring(esamVerStart, 10);
-
-            int meterNoStart = strApdu.IndexOf("40020200") + 8 + 6;//表号
-            txt698MeterNo.Text = strApdu.Substring(meterNoStart, 12);
-            Protocol698.MeterNo = Transfer.StrToByte(txt698MeterNo.Text);
-
-            txtCommState.Text = "未协商或已失效";
-            txtCommState.BackColor = Color.Red;
-            txtCommCertState.Text = "未协商或已失效";
-            txtCommCertState.BackColor = Color.Red;
-            txtConnectState.Text = "未连接或已失效";
-            txtConnectState.BackColor = Color.Red;
-        }
-
-        private void txt698Addr_TextChanged(object sender, EventArgs e)
-        {
-            Protocol698.Addr = txt698Addr.Text;
-        }
+        private bool ComTestFlag = false;
+        CancellationTokenSource cancellationTokenSource;
+        private Dictionary<string, string> testContent = new Dictionary<string, string>();
 
         private void btnRead698Addr_Click(object sender, EventArgs e)
         {
@@ -843,6 +694,7 @@ namespace iMeter
             Functions.Delay(10);
             Protocol698 p698 = new Protocol698();
             txt698Addr.Text = p698.ReadAddr();
+            Protocol698.Addr = txt698Addr.Text;
         }
 
         private void btnConnect_Click(object sender, EventArgs e)
@@ -860,7 +712,7 @@ namespace iMeter
             int maxApduSize = int.Parse(txtMaxApduSize.Text);
             consult.MaxApduSize = (maxApduSize >> 8).ToString("X2") + (maxApduSize & 0x00ff).ToString("X2");
             int overTime = int.Parse(txtOverTime.Text);
-            consult.OverTime = (overTime >> 24).ToString("X2") + (overTime >> 16).ToString("X2") +(overTime >> 8).ToString("X2") + (overTime & 0x00ff).ToString("X2");
+            consult.OverTime = (overTime >> 24).ToString("X2") + (overTime >> 16).ToString("X2") + (overTime >> 8).ToString("X2") + (overTime & 0x00ff).ToString("X2");
             consult.SecurityRule = comboBoxSecurityRule.SelectedIndex.ToString("X2");
             Protocol698 p698 = new Protocol698();
             p698.Connect(txt698KeyVer.Text, consult);
@@ -918,6 +770,262 @@ namespace iMeter
             }
             int crc = sum % 256;
             MessageBox.Show("校验和为：" + crc.ToString("X2"));
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (!Functions.IsNum(textBox6.Text))
+            {
+                MessageBox.Show("测试次数请填入数字");
+                return;
+            }
+            int cnt = int.Parse(textBox6.Text) == 0 ? int.MaxValue : int.Parse(textBox6.Text);
+            if (cnt < 0) return;
+
+            string protocol = comboBox13.Text.Trim();
+
+            if (button4.Text == "开始测试")
+            {
+                Control.CheckForIllegalCrossThreadCalls = false;//不检查跨线程的调用是否合法
+                cancellationTokenSource = new CancellationTokenSource();
+                testContent.Clear();
+                for (int i = 0; i < dataGridView1.RowCount - 1; i++)
+                {
+                    testContent.Add(dataGridView1.Rows[i].Cells[0].Value?.ToString().Replace(" ", ""),
+                        dataGridView1.Rows[i].Cells[1].Value?.ToString().Replace(" ", ""));
+                }
+                if (testContent.Count == 0) return;
+
+                ComTestFlag = true;
+
+                if (checkBox6.Checked)
+                {
+                    if (comboBox12.Text == "") { MessageBox.Show("请选择485串口号！"); return; }
+                    if (comboBox9.Text == "") { MessageBox.Show("请选择485波特率！"); return; }
+                    string port = comboBox12.Text.Trim();
+                    int baud = Convert.ToInt32(comboBox9.Text);
+                    Task.Factory.StartNew(() => CommTest(protocol, "485", port, baud, cnt));
+                }
+                if (checkBox5.Checked)
+                {
+                    if (comboBox11.Text == "") { MessageBox.Show("请选择载波串口号！"); return; }
+                    if (comboBox8.Text == "") { MessageBox.Show("请选择载波波特率！"); return; }
+                    string port = comboBox11.Text.Trim();
+                    int baud = Convert.ToInt32(comboBox8.Text);
+                    Task.Factory.StartNew(() => CommTest(protocol, "ttl", port, baud, cnt));
+                }
+                if (checkBox4.Checked)
+                {
+                    if (comboBox10.Text == "") { MessageBox.Show("请选择红外串口号！"); return; }
+                    if (comboBox16.Text == "") { MessageBox.Show("请选择红外波特率！"); return; }
+                    string port = comboBox10.Text.Trim();
+                    int baud = Convert.ToInt32(comboBox16.Text);
+                    Task.Factory.StartNew(() => CommTest(protocol, "infra", port, baud, cnt));
+                }
+                if (checkBox7.Checked)
+                {
+                    if (comboBox15.Text == "") { MessageBox.Show("请选择蓝牙串口号！"); return; }
+                    if (comboBox14.Text == "") { MessageBox.Show("请选择蓝牙波特率！"); return; }
+                    string port = comboBox15.Text.Trim();
+                    int baud = Convert.ToInt32(comboBox14.Text);
+                    Task.Factory.StartNew(() => CommTest(protocol, "bluetooth", port, baud, cnt));
+                }
+                if (!checkBox4.Checked && !checkBox5.Checked && !checkBox6.Checked && !checkBox7.Checked)
+                {
+                    ComTestFlag = false;
+                }
+            }
+            if (button4.Text == "停止测试")
+            {
+                ComTestFlag = false;
+                cancellationTokenSource.Cancel();
+            }
+
+            button4.Text = (ComTestFlag ? "停止测试" : "开始测试");
+        }
+        private void CommTest(string protocol, string channel, string port, int baud, int count)
+        {
+            try
+            {
+                int SuccessCnt = 0;
+                int SendCnt = 0;
+
+                for (int i = 0; i < count; i++)
+                {
+                    //线程终止
+                    if (cancellationTokenSource.Token.IsCancellationRequested)
+                    {
+                        return;
+                    }
+                    //取随机数
+                    Random ro = new Random();
+                    int rand = ro.Next(testContent.Count);
+                    //获取发送接收内容
+                    string send = testContent.ElementAt(rand).Key;
+                    string recv = testContent.ElementAt(rand).Value.ToUpper().Replace(" ", "");
+                    SendCnt++;
+                    //按协议类型发送数据并比较返回数据是否期望数据
+                    string ret = string.Empty;
+                    if (protocol == "698")
+                    {
+                        ret = new Protocol698().ReadByApduReturnApdu(send, port, baud);
+                    }
+                    if (protocol == "645")
+                    {
+                        new Protocol645().ReadData(send.Replace(" ", "").ToUpper(), out ret, port, baud);
+                    }
+                    if (ret != null && ret.Length > 0)
+                    {
+                        if (ret == recv)
+                        {
+                            SuccessCnt++;
+                        }
+                    }
+                    //计算成功率
+                    double rate = (double)SuccessCnt / (double)SendCnt * 100;
+                    string desc = SuccessCnt + "/" + SendCnt + "*100% = " + rate.ToString("F2") + "%";
+                    this.BeginInvoke(new Action(() =>
+                    {
+                        switch (channel)
+                        {
+                            case "485": textBox7.Text = desc; break;
+                            case "ttl": textBox4.Text = desc; break;
+                            case "infra": textBox12.Text = desc; break;
+                            case "bluetooth": textBox5.Text = desc; break;
+                            default: break;
+                        }
+                    }));
+                }
+            }
+            catch (Exception)
+            { }
+        }
+
+
+        private void FlashComPort(object sender, EventArgs e)
+        {
+            string[] ports = System.IO.Ports.SerialPort.GetPortNames();//获取当前电脑串口
+            if (ports.Length < 1)
+            {
+                ports = new string[1] { "COM1" };//如果当前电脑没有串口，默认写com1
+            }
+            Array.Sort(ports);
+            (sender as ComboBox).Items.Clear();
+            (sender as ComboBox).Items.AddRange(ports);
+        }
+        /// <summary>
+        /// 加载方案
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LoadSchem(object sender, EventArgs e)
+        {
+            string openFilePath = Application.StartupPath + "\\data";
+            if (!Directory.Exists(openFilePath))
+            {
+                Directory.CreateDirectory(openFilePath);
+            }
+            OpenFileDialog ofd = new OpenFileDialog()
+            {
+                Title = "请选择要打开的文件",
+                Filter = "xml文件(*.xml)|*.xml",
+                InitialDirectory = openFilePath
+            };
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                dataGridView1.Rows.Clear();
+                XmlDocument xml = new XmlDocument();
+                xml.Load(ofd.FileName);
+                XmlNode root = xml.ChildNodes[1];
+                XmlNodeList frmList = root.ChildNodes;
+                foreach (XmlNode frm in frmList)
+                {
+                    int idx = dataGridView1.Rows.Add();
+                    dataGridView1.Rows[idx].Cells[0].Value = frm["send"].InnerText;
+                    dataGridView1.Rows[idx].Cells[1].Value = frm["recv"].InnerText;
+                }
+            }
+        }
+        /// <summary>
+        /// 保存方案
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveSchem(object sender, EventArgs e)
+        {
+
+            string saveFilePath = Application.StartupPath + "\\data";
+            if (!Directory.Exists(saveFilePath))
+            {
+                Directory.CreateDirectory(saveFilePath);
+            }
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Title = "请选择要保存的文件路径",
+                Filter = "xml文件(*.xml)|*.xml",
+                InitialDirectory = saveFilePath,
+                FileName = comboBox13.Text == "698" ? "698comTestData.xml" : "645comTestData.xml"
+            };
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = saveFileDialog.FileName;
+                CreateXmlFile(filePath);
+            }
+        }
+        /// <summary>
+        /// 创建Xml文件
+        /// </summary>
+        private void CreateXmlFile(string saveFilePath)
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            //创建类型声明节点  
+            XmlNode node = xmlDoc.CreateXmlDeclaration("1.0", "utf-8", "");
+            xmlDoc.AppendChild(node);
+            //创建Xml根节点  
+            XmlNode root = xmlDoc.CreateElement("data");
+            xmlDoc.AppendChild(root);
+
+            //创建子节点
+            for (int i = 0; i < dataGridView1.RowCount - 1; i++)
+            {
+                XmlNode root1 = xmlDoc.CreateElement("frame");
+                root.AppendChild(root1);
+                CreateNode(xmlDoc, root1, "send", dataGridView1.Rows[i].Cells[0].Value?.ToString());
+                CreateNode(xmlDoc, root1, "recv", dataGridView1.Rows[i].Cells[1].Value?.ToString());
+            }
+
+            //将文件保存到指定位置
+            xmlDoc.Save(saveFilePath);
+        }
+
+        /// <summary>    
+        /// 创建节点    
+        /// </summary>    
+        /// <param name="xmlDoc">xml文档</param>    
+        /// <param name="parentNode">Xml父节点</param>    
+        /// <param name="name">节点名</param>    
+        /// <param name="value">节点值</param>    
+        ///   
+        private void CreateNode(XmlDocument xmlDoc, XmlNode parentNode, string name, string value)
+        {
+            //创建对应Xml节点元素
+            XmlNode node = xmlDoc.CreateNode(XmlNodeType.Element, name, null);
+            node.InnerText = value;
+            parentNode.AppendChild(node);
+        }
+
+        private void comboBox13_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if ((sender as ComboBox).Text == "698")
+            {
+                dataGridView1.Columns[0].HeaderText = "发送明文APDU";
+                dataGridView1.Columns[1].HeaderText = "接收明文APDU，不支持分帧";
+            }
+            else
+            {
+                dataGridView1.Columns[0].HeaderText = "ID";
+                dataGridView1.Columns[1].HeaderText = "数据";
+            }
         }
     }
 }

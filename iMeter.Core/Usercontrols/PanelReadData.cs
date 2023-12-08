@@ -8,6 +8,7 @@ namespace iMeter
 {
     public partial class PanelReadData : UserControl
     {
+        public override string Text { get => "读数据"; }
         public PanelReadData()
         {
             InitializeComponent();

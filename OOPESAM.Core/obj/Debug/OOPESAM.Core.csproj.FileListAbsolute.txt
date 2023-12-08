@@ -69,3 +69,14 @@ C:\Users\梁越\Desktop\iMeter2_userctrl20181102\OOPESAM.Core\bin\Debug\OOPESAM.
 C:\Users\梁越\Desktop\iMeter2_userctrl20181102\OOPESAM.Core\obj\Debug\OOPESAM.Core.csproj.CoreCompileInputs.cache
 C:\Users\梁越\Desktop\iMeter2_userctrl20181102\OOPESAM.Core\obj\Debug\OOPESAM.Core.dll
 C:\Users\梁越\Desktop\iMeter2_userctrl20181102\OOPESAM.Core\obj\Debug\OOPESAM.Core.pdb
+D:\CODE\iMeter_winform\OOPESAM.Core\bin\Debug\MFC42D.DLL
+D:\CODE\iMeter_winform\OOPESAM.Core\bin\Debug\MFCN42D.DLL
+D:\CODE\iMeter_winform\OOPESAM.Core\bin\Debug\MFCO42D.DLL
+D:\CODE\iMeter_winform\OOPESAM.Core\bin\Debug\MSVCRTD.DLL
+D:\CODE\iMeter_winform\OOPESAM.Core\bin\Debug\SocketApi.dll
+D:\CODE\iMeter_winform\OOPESAM.Core\bin\Debug\OOPESAM.Core.dll
+D:\CODE\iMeter_winform\OOPESAM.Core\bin\Debug\OOPESAM.Core.pdb
+D:\CODE\iMeter_winform\OOPESAM.Core\obj\Debug\OOPESAM.Core.csproj.AssemblyReference.cache
+D:\CODE\iMeter_winform\OOPESAM.Core\obj\Debug\OOPESAM.Core.csproj.CoreCompileInputs.cache
+D:\CODE\iMeter_winform\OOPESAM.Core\obj\Debug\OOPESAM.Core.dll
+D:\CODE\iMeter_winform\OOPESAM.Core\obj\Debug\OOPESAM.Core.pdb

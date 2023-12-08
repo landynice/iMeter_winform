@@ -84,3 +84,10 @@ C:\Users\梁越\Desktop\iMeter2_userctrl20181102\OAUS.Core\obj\Debug\OAUS.Core.c
 C:\Users\梁越\Desktop\iMeter2_userctrl20181102\OAUS.Core\obj\Debug\OAUS.Core.csproj.CoreCompileInputs.cache
 C:\Users\梁越\Desktop\iMeter2_userctrl20181102\OAUS.Core\obj\Debug\OAUS.Core.dll
 C:\Users\梁越\Desktop\iMeter2_userctrl20181102\OAUS.Core\obj\Debug\OAUS.Core.pdb
+D:\CODE\iMeter_winform\OAUS.Core\bin\Debug\OAUS.Core.dll
+D:\CODE\iMeter_winform\OAUS.Core\bin\Debug\OAUS.Core.pdb
+D:\CODE\iMeter_winform\OAUS.Core\obj\Debug\OAUS.Core.csproj.AssemblyReference.cache
+D:\CODE\iMeter_winform\OAUS.Core\obj\Debug\OAUS.Core.csproj.CoreCompileInputs.cache
+D:\CODE\iMeter_winform\OAUS.Core\obj\Debug\OAUS.Core.csproj.CopyComplete
+D:\CODE\iMeter_winform\OAUS.Core\obj\Debug\OAUS.Core.dll
+D:\CODE\iMeter_winform\OAUS.Core\obj\Debug\OAUS.Core.pdb

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Windows.Forms;
 using Communication.Core;
 
 namespace Protocol.Core
@@ -74,50 +72,61 @@ namespace Protocol.Core
 
         protected virtual bool Send(string str)
         {
-			bool ret = false;
+            bool ret = false;
             str = _4FEString + str;//根据645协议，加4个FE通讯会好很多
-			try
-			{
-				SerialPortCom _sp = new SerialPortCom(_portName, _baudRate);
-				_sp.ReceiveFinishEven += ReceiveFinishJudge;
+            try
+            {
+                SerialPortCom _sp = new SerialPortCom(_portName, _baudRate);
+                _sp.ReceiveFinishEven += ReceiveFinishJudge;
 
                 ret = _sp.Send(str);
                 if (MsgEvent != null)
                 {
                     MsgEvent(true, str);
                 }
-			}
-			catch(Exception ex)
-			{
-				throw ex;
-			}
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
             return ret;
         }
 
-        protected virtual string SendAndRec(string str)
+        protected virtual string SendAndRec(string str, string portName = "default", int baudRate = 9600)
         {
-			string ret = string.Empty;
+            string ret = string.Empty;
             str = _4FEString + str;//根据645协议，加4个FE通讯会好很多
-			try
-			{
-				SerialPortCom _sp = new SerialPortCom(_portName, _baudRate);
-				_sp.ReceiveFinishEven += ReceiveFinishJudge;
+            try
+            {
+                SerialPortCom _sp;
+                if (portName != "default")
+                {
+                    _sp = new SerialPortCom(portName, baudRate);
+                }
+                else
+                {
+                    _sp = new SerialPortCom(_portName, _baudRate);
+                }
+
+                _sp.ReceiveFinishEven += ReceiveFinishJudge;
                 ret = _sp.SendAndReceive(str);
                 if (MsgEvent != null)
                 {
                     MsgEvent(true, str);
                     MsgEvent(false, ret);
                 }
-				AnayzeFrm(ret);
-			}
-			catch(Exception ex)
-			{
-				throw ex;
-			}
-            
+                AnayzeFrm(ret);
+            }
+            catch (Exception ex)
+            {
+                //if (MsgEvent != null) { MsgEvent(false, ex.ToString()); }
+                MessageBox.Show(ex.ToString());
+                //throw ex;
+            }
+
             return ret;
         }
 
-        
+
     }
 }

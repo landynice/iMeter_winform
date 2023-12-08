@@ -7,6 +7,7 @@ namespace iMeter
 {
     public partial class PanelTimeZoneTest : UserControl
     {
+        public override string Text { get => "时区时段测试"; }
         public PanelTimeZoneTest()
         {
             InitializeComponent();

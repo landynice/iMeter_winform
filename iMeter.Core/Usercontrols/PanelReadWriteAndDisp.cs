@@ -7,6 +7,7 @@ namespace iMeter
 {
     public partial class PanelReadWriteAndDisp : UserControl
     {
+        public override string Text { get => "多项读写/显示"; }
         public PanelReadWriteAndDisp()
         {
             InitializeComponent();

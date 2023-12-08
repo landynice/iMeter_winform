@@ -8,6 +8,7 @@ namespace iMeter
 {
     public partial class PanelStatePara : UserControl
     {
+        public override string Text { get => "状态字/模式字/特征字"; }
         public PanelStatePara()
         {
             InitializeComponent();
@@ -24,13 +25,13 @@ namespace iMeter
                 List<string> list = new List<string>();
                 list.Add("电表运行状态字1：");
                 list.Add("保留");
-                list.Add("保留");
+                list.Add("费控模式状态\r\n(0本地，\r\n1远程)");
                 list.Add("无功功率方向\r\n(0正向,1反向)");
                 list.Add("有功功率方向\r\n(0正向,1反向)");
                 list.Add("停电抄表电池\r\n(0正常,1欠压)");
                 list.Add("时钟电池\r\n(0正常,1欠压)");
                 list.Add("需量积算方式\r\n(0滑差,1区间)");
-                list.Add("保留");
+                list.Add("计量单元异常");
                 list.Add("时钟故障");
                 list.Add("透支状态");
                 list.Add("存储器故障\r\n或损坏");

@@ -44,6 +44,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="698\APDU\GET\GET.cs" />
+    <Compile Include="698\APDU\GET\GetRequest.cs" />
+    <Compile Include="698\APDU\GET\GetRequestMD5.cs" />
+    <Compile Include="698\APDU\GET\GetRequestNext.cs" />
+    <Compile Include="698\APDU\GET\GetRequestNormal.cs" />
+    <Compile Include="698\APDU\GET\GetRequestNormalList.cs" />
+    <Compile Include="698\APDU\GET\GetRequestRecord.cs" />
+    <Compile Include="698\APDU\GET\GetRequestRecordList.cs" />
+    <Compile Include="698\APDU\GET\GetRequestSimplifyRecord.cs" />
+    <Compile Include="698\APDU\GET\GetResponse.cs" />
+    <Compile Include="698\APDU\GET\GetResponseMD5.cs" />
+    <Compile Include="698\APDU\GET\GetResponseNext.cs" />
+    <Compile Include="698\APDU\GET\GetResponseNormal.cs" />
+    <Compile Include="698\APDU\GET\GetResponseNormalList.cs" />
+    <Compile Include="698\APDU\GET\GetResponseRecord.cs" />
+    <Compile Include="698\APDU\GET\GetResponseRecordList.cs" />
+    <Compile Include="698\APDU\GET\GetResponseSimplifyRecord.cs" />
+    <Compile Include="698\APDU\TimeTag\TimeTag.cs" />
+    <Compile Include="698\DataType\date_time_s.cs" />
+    <Compile Include="698\DataType\OAD.cs" />
+    <Compile Include="698\DataType\OI.cs" />
+    <Compile Include="698\DataType\PIID.cs" />
+    <Compile Include="698\DataType\TI.cs" />
+    <Compile Include="698\Enums\APDU_Type.cs" />
+    <Compile Include="698\Enums\TI_Unit.cs" />
     <Compile Include="Connected Services\Esam698Service\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -125,6 +150,13 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="698\APDU\ACTION\" />
+    <Folder Include="698\APDU\PROXY\" />
+    <Folder Include="698\APDU\REPORT\" />
+    <Folder Include="698\APDU\SECURITY\" />
+    <Folder Include="698\APDU\SET\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

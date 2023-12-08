@@ -7,7 +7,7 @@ namespace iMeter
 {
     public partial class PanelOftenUsePara : UserControl
     {
-        public readonly string ControlName = "常用参数";
+        public override string Text { get => "常用参数"; }
 
         public PanelOftenUsePara()
         {

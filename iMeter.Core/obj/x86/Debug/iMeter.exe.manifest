@@ -49,32 +49,32 @@
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>aHdCKKAspFqZwIEYKRLQ+1GxVuY=</dsig:DigestValue>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>PiBI/1vU/vBU6/KelDuFLHvwVTTLZW5xsGsT6UqUxbM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="iMeter.exe" size="609792">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="iMeter.exe" size="617984">
       <assemblyIdentity name="iMeter" version="1.0.0.2" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>sBRdjAOFeaKJUmKJRXF8NsyZLaA=</dsig:DigestValue>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>VMOqLXrDKGu95fI79MQ0Hqts3OtpXa8H51NYPn7QZmE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Protocol.Core.dll" size="59904">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Protocol.Core.dll" size="67584">
       <assemblyIdentity name="Protocol.Core" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>wuhsnNUqxCvIPygkGqtBh5CmFJI=</dsig:DigestValue>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>MbnCJ2g/48d04RlM3EElnM6R+YDgPT3k+yuxLmNglOc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -85,18 +85,18 @@
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>6mlOeCEO8UoL0VmmQgy7LUJ1eEo=</dsig:DigestValue>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>YqkGoCB4CzWRzCh8dPgMMgXCq4MPKzgLrZGwq0C6Mhg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="iMeter.exe.config" size="759">
+  <file name="iMeter.exe.config" size="723">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>DKzrqeB8luypg6EpvrrObu0Vi8w=</dsig:DigestValue>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>pZ4+FV6YinG/bV9LRhcQ18DAFsdprpAbwTzuUjFAuM4=</dsig:DigestValue>
     </hash>
   </file>
   <file name="logo.ico" size="24462">
@@ -104,8 +104,8 @@
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>+ppjmjnkvusuL6MviNCDbH2CvVw=</dsig:DigestValue>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>mgr8NcVn31epTzA+bI8u8/jZV1TZETJFZIOW4NwQKms=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

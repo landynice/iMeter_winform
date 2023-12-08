@@ -5,13 +5,13 @@ namespace Protocol.Core
 {
     public class Frame698
     {
-        private const int MAXFRAMELEN    = 512;
-        private const int MINFRAMELEN    = 17;
-        private const int OADLEN         = 4;
+        private const int MAXFRAMELEN = 512;
+        private const int MINFRAMELEN = 17;
+        private const int OADLEN = 4;
         private const int OFFSET_START68 = 0;
-        private const int OFFSET_LEN     = 1;
+        private const int OFFSET_LEN = 1;
         private const int OFFSET_CTRLNUM = 3;
-        private const int OFFSET_SA      = 4;
+        private const int OFFSET_SA = 4;
 
         #region 698帧定义
         private string strFrame = null;
@@ -68,7 +68,7 @@ namespace Protocol.Core
         }
         public string LengthStr
         {
-            get { return Length.ToString().PadLeft(4,'0'); }
+            get { return Length.ToString().PadLeft(4, '0'); }
         }
         public string LengthFrame
         {
@@ -98,7 +98,7 @@ namespace Protocol.Core
             {
                 byte[] tmp = new byte[2];
                 tmp[0] = (byte)((L & 0xff00) >> 8);
-                tmp[1] = (byte)( L & 0x00ff);
+                tmp[1] = (byte)(L & 0x00ff);
                 return tmp;
             }
         }
@@ -155,7 +155,7 @@ namespace Protocol.Core
         /// </summary>
         public string SaStr
         {
-            get{ return SA.ToHexString().Substring(2); }
+            get { return SA.ToHexString().Substring(2); }
         }
         /// <summary>
         /// 服务器地址类型
@@ -237,7 +237,7 @@ namespace Protocol.Core
             get//{APDU.ToHexString();}
             {
                 string tmp = "";
-                for(int i = 0; i < APDU.Length; i++)
+                for (int i = 0; i < APDU.Length; i++)
                 {
                     tmp += APDU[i].ToString("X2") + " ";
                 }
@@ -282,9 +282,9 @@ namespace Protocol.Core
             //检查头校验
             int tmpSaLen = (byteFrame[first68Index + OFFSET_SA] & 0x0f) + 1;
             int hcsOffsetPos = first68Index + OFFSET_SA + tmpSaLen + 2;
-            ushort hcs = (ushort)(byteFrame[hcsOffsetPos + 1] << 8 + byteFrame[hcsOffsetPos]);            
+            ushort hcs = (ushort)(byteFrame[hcsOffsetPos + 1] << 8 + byteFrame[hcsOffsetPos]);
             string headFrm = "";
-            for(int i = first68Index; i < hcsOffsetPos; i++)
+            for (int i = first68Index; i < hcsOffsetPos; i++)
             {
                 headFrm += byteFrame[i].ToHexString();
             }
@@ -316,9 +316,9 @@ namespace Protocol.Core
             saLen = (byte)tmpSaLen;
             SA = new byte[saLen + 1];
             SA[0] = byteFrame[OFFSET_SA];
-            for(int i = 0; i < saLen; i++)
+            for (int i = 0; i < saLen; i++)
             {
-                SA[i+1] = byteFrame[OFFSET_SA + saLen - i];
+                SA[i + 1] = byteFrame[OFFSET_SA + saLen - i];
             }
             CA = byteFrame[OFFSET_SA + saLen + 1];
             HCS[0] = byteFrame[OFFSET_SA + saLen + 3];
@@ -326,7 +326,7 @@ namespace Protocol.Core
             int offsetAPDU = OFFSET_SA + saLen + 4;
             APDUlen = (byte)(frameLen - offsetAPDU - 3);
             APDU = new byte[APDUlen];
-            for(int i = 0; i < APDUlen; i++)
+            for (int i = 0; i < APDUlen; i++)
             {
                 APDU[i] = byteFrame[offsetAPDU + i];
             }
@@ -350,7 +350,7 @@ namespace Protocol.Core
     }
     class APDU
     {
-        public const byte LINK_REQUEST  = 1;
+        public const byte LINK_REQUEST = 1;
         public const byte LINK_RESPONSE = 129;
         public const byte CONNECT_REQUEST = 2;
         public const byte CONNECT_RESPONSE = 130;
@@ -390,7 +390,7 @@ namespace Protocol.Core
 
         private bool _isValid;
 
-        private readonly byte[] UnknowNumDataType = new byte[]{1, 2, 4, 9, 10, 85};//未知长度的数据类型
+        private readonly byte[] UnknowNumDataType = new byte[] { 1, 2, 4, 9, 10, 85 };//未知长度的数据类型
 
         public APDU(byte[] apdu)
         {
@@ -404,7 +404,18 @@ namespace Protocol.Core
             {
                 _isSecurity = true;
                 offset++;
-                _isPlain = (apdu[offset] == 0) ? true : false;
+                if (apdu[offset] == 0)
+                {
+                    _isPlain = true;
+                }
+                else if (apdu[offset] == 1)
+                {
+                    _isPlain = false;
+                }
+                else
+                {
+                    throw new Exception("错误的APDU帧");
+                }
                 offset++;
                 _plainOrCipherLen = apdu[offset];
                 offset++;
@@ -422,31 +433,35 @@ namespace Protocol.Core
             }
             _ctrl1 = apdu[offset];
             offset++;
+            _ctrl2 = apdu[offset];
+            offset++;
+            _piid = apdu[offset];
+            offset++;
+
             switch (_ctrl1)
             {
-                case GET_REQUEST:
-                    break;
+                case GET_REQUEST: AnalyzeGetRequest(apdu, ref offset); break;
+                case GET_RESPONSE: AnalyzeGetResponse(apdu, ref offset); break;
                 default:
                     break;
             }
         }
 
-        private void AnalyzeGET(byte[] frm)
-        {
-            int offset = 0;
-            _ctrl2 = frm[offset];
-            offset++;
-            _piid = frm[offset];
-            offset++;
-            if (_ctrl1 == GET_REQUEST)
-            {
-                AnalyzeGetRequest(frm, ref offset);
-            }
-            else if (_ctrl1 == GET_RESPONSE)
-            {
-                AnalyzeGetResponse(frm, ref offset);
-            }
-        }
+        //private void AnalyzeGET(byte[] frm, ref int offset)
+        //{
+        //    _ctrl2 = frm[offset];
+        //    offset++;
+        //    _piid = frm[offset];
+        //    offset++;
+        //    if (_ctrl1 == GET_REQUEST)
+        //    {
+        //        AnalyzeGetRequest(frm, ref offset);
+        //    }
+        //    else if (_ctrl1 == GET_RESPONSE)
+        //    {
+        //        AnalyzeGetResponse(frm, ref offset);
+        //    }
+        //}
 
         private void AnalyzeGetRequest(byte[] frm, ref int offset)
         {
@@ -497,11 +512,11 @@ namespace Protocol.Core
                     offset++;
                     if (_hasData)
                     {
-                        
+
                     }
                     else
                     {
-                        _dar[0,0] = frm[offset];
+                        _dar[0, 0] = frm[offset];
                         offset++;
                     }
                     break;
@@ -523,7 +538,7 @@ namespace Protocol.Core
                         }
                         else
                         {
-                            _dar[i,0] = frm[offset];
+                            _dar[i, 0] = frm[offset];
                             offset++;
                         }
                     }
@@ -577,7 +592,7 @@ namespace Protocol.Core
             int len = 0;
             switch (type)
             {
-                case 0: 
+                case 0:
                     len = 0; break;
                 case 3:
                 case 15:
@@ -587,7 +602,7 @@ namespace Protocol.Core
                 case 16:
                 case 18:
                 case 80:
-                    len = 2; break; 
+                    len = 2; break;
                 case 27:
                     len = 3; break;
                 case 5:
@@ -615,7 +630,7 @@ namespace Protocol.Core
     class MaxDemand
     {
         private byte[] OI = new byte[2];
-        
+
         private byte[] OAD = new byte[4];
         public byte[] GetOAD
         {

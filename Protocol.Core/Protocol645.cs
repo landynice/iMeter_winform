@@ -2,10 +2,11 @@
 using System.Windows.Forms;
 using System.Drawing;
 using PublicFunction;
+using System;
 
 namespace Protocol.Core
 {
-    public class Protocol645:IProtocol
+    public class Protocol645 : IProtocol
     {
         #region 表地址
         private static string _addr;
@@ -21,11 +22,11 @@ namespace Protocol.Core
             }
             set
             {
-                if(value.Length <= 12)
+                if (value.Length <= 12)
                 {
                     _addr = value.PadLeft(12, '0');//不足12个字符前面补0
                 }
-                
+
             }
         }
         #endregion
@@ -66,7 +67,7 @@ namespace Protocol.Core
             }
             set
             {
-                if(value.Length <= 8)
+                if (value.Length <= 8)
                 {
                     _psw = value.PadLeft(8, '0');//不足8个字符前面补0
                 }
@@ -141,7 +142,7 @@ namespace Protocol.Core
         }
         #endregion
 
-        private bool SendAndRecCustom(string txString, out string ctl, out string result)//有返回数据
+        public bool SendAndRecCustom(string txString, out string ctl, out string result)//有返回数据
         {
             result = null;
             ctl = null;
@@ -170,7 +171,7 @@ namespace Protocol.Core
         /// <param name="dataID">ID</param>
         /// <param name="result">返回数据</param>
         /// <returns>true/false</returns>
-        public bool ReadData(string dataID, out string result)
+        public bool ReadData(string dataID, out string result, string portName = "default", int baudRate = 9600)
         {
             //控制码：C=11H
             //数据域长度：L=04H+m
@@ -184,7 +185,7 @@ namespace Protocol.Core
             }
 
             string sendFrm = AssembleFrm("11", "04", Transfer.ReverseString(dataID));
-            string ret = SendAndRec(sendFrm);
+            string ret = SendAndRec(sendFrm, portName, baudRate);
             if (ret != null && ret.Length > 0)
             {
                 if (_retFrm.hexCtrolNum == 0x91 || _retFrm.hexCtrolNum == 0xB1)
@@ -516,11 +517,31 @@ namespace Protocol.Core
         #endregion
 
         #region 广播校时
-        public bool BroadcastSetTime(string dataOfTime)
+        public bool BroadcastSetTime(string dataOfTime, string addr = "999999999999")
+        {
+            string tmpAddr = _addr;
+            if (addr == "999999999999")
+            {
+                _addr = "999999999999";
+            }
+            string sendFrm = AssembleFrm("08", "06", Transfer.ReverseString(dataOfTime));
+            _addr = tmpAddr;
+
+            string ret = SendAndRec(sendFrm);
+            if (ret != null && ret.Length > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool SuperBroadcastSetTime(string dataOfTime)
         {
             string tmpAddr = _addr;
             _addr = "999999999999";
-            string sendFrm = AssembleFrm("08", "06", Transfer.ReverseString(dataOfTime));
+            string sendFrm = AssembleFrm("08", "10", Transfer.ReverseString(dataOfTime + "19840405"));
             _addr = tmpAddr;
 
             string ret = SendAndRec(sendFrm);
@@ -662,6 +683,49 @@ namespace Protocol.Core
                 {
                     return true;
                 }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool FDW_1E(string dataID, out string result)
+        {
+            string sData = string.Empty;
+            result = null;
+            if (dataID.Length < 8)
+            {
+                MessageBox.Show("ID不足8位，请重新输入！");
+                return false;
+            }
+
+            sData += Transfer.ReverseString(dataID);
+
+            string sendFrm = AssembleFrm("1E", "04", sData);
+            string ret = SendAndRec(sendFrm);
+            if (ret != null && ret.Length > 0)
+            {
+                int startIdx = ret.IndexOf(sData);
+                if (startIdx > 0)
+                {
+                    int len = Convert.ToInt32(ret.Substring(startIdx - 2, 2), 16);
+                    result = ret.Substring(startIdx + 8, (len - 4) * 2);
+                    result = Transfer.AsciiToString(result);
+                    return true;
+                }
+                //if (_retFrm.hexCtrolNum == 0x1E)
+                //{
+                //    result = _retFrm.Data;
+                //    //if (ascii.Contains(dataID))
+                //    //{
+                //    //    result = Transfer.AsciiToString(result);
+                //    //}
+                //    return true;
+                //}
                 else
                 {
                     return false;

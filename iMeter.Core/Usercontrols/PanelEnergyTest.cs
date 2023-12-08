@@ -7,6 +7,7 @@ namespace iMeter
 {
     public partial class PanelEnergyTest : UserControl
     {
+        public override string Text { get => "电量测试"; }
         public PanelEnergyTest()
         {
             InitializeComponent();

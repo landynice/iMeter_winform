@@ -10,6 +10,7 @@ using System.Threading;
 using System.Drawing;
 using PublicFunction;
 using Protocol.Core;
+using System.Collections.Generic;
 //using Communication.Core;
 
 namespace iMeter
@@ -28,7 +29,7 @@ namespace iMeter
             InterfaceInit();
             LoadUserCtrol();
             //加载文本框记录
-            LoadInterfacePara(tabControl1);
+            //LoadInterfacePara(tabControl1);
 
             //CheckUpdata();//启动后检查是否有更新
             //LinkToServer();
@@ -164,6 +165,7 @@ namespace iMeter
                 toolStripTextBoxOprCode.Text = ini.ReadValue("ComPortSetting", "MeterOprCode");
                 toolStripTextBoxPsw.Text     = ini.ReadValue("ComPortSetting", "MeterPsw");
                 toolStripTbAddr.Text         = ini.ReadValue("MeterInfo",      "MeterAddress");
+                toolStripTBCA.Text = ini.ReadValue("MeterInfo", "CA");
                 //界面选择
                 if (Functions.IsNum(ini.ReadValue("Interface", "TabControlSelect")))
                     tabControl1.SelectedIndex = Convert.ToInt16(ini.ReadValue("Interface", "TabControlSelect"));
@@ -182,6 +184,7 @@ namespace iMeter
                 toolStripComboBoxBps.Text    = "2400";
                 toolStripTextBoxOprCode.Text = "00000001";
                 toolStripTextBoxPsw.Text     = "00000002";
+                toolStripTBCA.Text = "A1";
             }
 			//初始化串口
 			if (toolStripComboBoxCom.Text != string.Empty && toolStripComboBoxBps.Text != string.Empty)
@@ -202,6 +205,7 @@ namespace iMeter
             Protocol645.Addr = toolStripTbAddr.Text.PadLeft(12, '0');
             Protocol645.Psw = toolStripTextBoxPsw.Text.PadLeft(8, '0');
             Protocol645.OprCode = toolStripTextBoxOprCode.Text.PadLeft(8, '0');
+            Protocol698.CA = toolStripTBCA.Text.PadLeft(2, '0');
             //费率表格初始化
             //dgRates.Rows.Add(32);
             //for (int i = 0; i < 32; i++)
@@ -217,43 +221,31 @@ namespace iMeter
         /// </summary>
         private void LoadUserCtrol()
         {
+            List<Control> controls = new List<Control>
+            {
+                new PanelOftenUsePara(),    //常用参数
+                new PanelReadWriteAndDisp(),//多项读写/显示
+                new PanelSpecialCommand(),  //特殊命令
+                new PanelEsamAndCtrol(),    //ESAM/费控
+                new PanelStatePara(),       //状态字/模式字/特征字
+                new PanelTimeZoneTest(),    //时区时段测试
+                new PanelBroadSetTimeTest(),//广播校时测试
+                new PanelEventTest(),       //事件测试
+                new PanelFreezeTest(),      //冻结测试
+                new PanelEnergyTest(),      //电量测试
+                new PanelReadData(),        //读数据
+                new PanelProtocol698(),     //698协议通讯
+                new PanelInfinitTest()      //多次读取
+            };
             try
             {
-                //if (tabControl1.TabCount != 12)
-                //{
-                //    for (int i = 0; i < 12; i++)
-                //    {
-                //        tabControl1.TabPages.Add(i.ToString());
-                //    }
-                //}
-                //tabControl1.TabPages[0].Text = "状态字/模式字/特征字";
-                //tabControl1.TabPages[0].Controls.Add(new PanelStatePara());
-                tabControl1.TabPages[0].Text = (new PanelOftenUsePara()).ControlName;//"常用参数";
-                tabControl1.TabPages[0].Controls.Add(new PanelOftenUsePara());
-                tabControl1.TabPages[1].Text = "多项读写/显示";
-                tabControl1.TabPages[1].Controls.Add(new PanelReadWriteAndDisp());
-                tabControl1.TabPages[2].Text = "特殊命令";
-                tabControl1.TabPages[2].Controls.Add(new PanelSpecialCommand());
-                tabControl1.TabPages[3].Text = "ESAM/费控";
-                tabControl1.TabPages[3].Controls.Add(new PanelEsamAndCtrol());
-                tabControl1.TabPages[4].Text = "状态字/模式字/特征字";
-                tabControl1.TabPages[4].Controls.Add(new PanelStatePara());
-                tabControl1.TabPages[5].Text = "时区时段测试";
-                tabControl1.TabPages[5].Controls.Add(new PanelTimeZoneTest());
-                tabControl1.TabPages[6].Text = "广播校时测试";
-                tabControl1.TabPages[6].Controls.Add(new PanelBroadSetTimeTest());
-                tabControl1.TabPages[7].Text = "事件测试";
-                tabControl1.TabPages[7].Controls.Add(new PanelEventTest());
-                tabControl1.TabPages[8].Text = "冻结测试";
-                tabControl1.TabPages[8].Controls.Add(new PanelFreezeTest());
-                tabControl1.TabPages[9].Text = "电量测试";
-                tabControl1.TabPages[9].Controls.Add(new PanelEnergyTest());
-                tabControl1.TabPages[10].Text = "读数据";
-                tabControl1.TabPages[10].Controls.Add(new PanelReadData());
-                tabControl1.TabPages[11].Text = "698协议通讯";
-                tabControl1.TabPages[11].Controls.Add(new PanelProtocol698());
-                tabControl1.TabPages[12].Text = "多次读取";
-                tabControl1.TabPages[12].Controls.Add(new PanelInfinitTest());
+                foreach (Control control in controls)
+                {
+                    TabPage tabPage = new TabPage(control.Text);
+                    control.Dock = DockStyle.Fill;
+                    tabPage.Controls.Add(control);
+                    tabControl1.TabPages.Add(tabPage);
+                }
             }
             catch (Exception ex)
             {
@@ -344,9 +336,17 @@ namespace iMeter
             if (sender == toolStripTbAddr)
             {
                 Protocol645.Addr = toolStripTbAddr.Text.PadLeft(12, '0');       //表地址改变，则写入addr
+                string temp1 = toolStripTbAddr.Text.PadLeft(12, '0');
+                string temp2 = "";
+                for (int i = 6; i > 0; i--)
+                {
+                    temp2 += temp1.Substring(i * 2 - 2, 2);
+                }
+                Protocol698.Addr = temp2;
             }
             if (sender == toolStripTextBoxPsw)     Protocol645.Psw         = toolStripTextBoxPsw.Text.PadLeft(8, '0');    //密码改变，则写入psw
             if (sender == toolStripTextBoxOprCode) Protocol645.OprCode     = toolStripTextBoxOprCode.Text.PadLeft(8, '0');//操作者代码改变，则写入oprcode
+            if (sender == toolStripTBCA) Protocol698.CA = toolStripTBCA.Text.PadLeft(2, '0');
 
             if (sender == toolStripComboBoxCom) IProtocol.PortName = toolStripComboBoxCom.Text;                   //串口号改变
             if (sender == toolStripComboBoxBps) IProtocol.BaudRate = int.Parse(toolStripComboBoxBps.Text);        //波特率改变
@@ -383,10 +383,11 @@ namespace iMeter
             ini.Writue("ComPortSetting", "MeterOprCode",     toolStripTextBoxOprCode.Text);
             ini.Writue("ComPortSetting", "MeterPsw",         toolStripTextBoxPsw.Text);
             ini.Writue("MeterInfo",      "MeterAddress",     toolStripTbAddr.Text.PadLeft(12, '0'));
+            ini.Writue("MeterInfo", "CA", toolStripTBCA.Text);
             //写入最后界面记录
-            ini.Writue("Interface", "TabControlSelect", tabControl1.SelectedIndex.ToString());
+            //ini.Writue("Interface", "TabControlSelect", tabControl1.SelectedIndex.ToString());
             //写入文本记录
-            SaveInterfacePara(tabControl1);
+            //SaveInterfacePara(tabControl1);
 
             //ComPort.ComClose();
             Environment.Exit(Environment.ExitCode);
@@ -584,8 +585,18 @@ namespace iMeter
 
 
 
-#endregion
+        #endregion
 
-
+        private void toolStripComboBoxCom_DropDown(object sender, EventArgs e)
+        {
+            string[] ports = System.IO.Ports.SerialPort.GetPortNames();//获取当前电脑串口
+            if (ports.Length < 1)
+            {
+                ports = new string[1] { "COM1" };//如果当前电脑没有串口，默认写com1
+            }
+            Array.Sort(ports);
+            toolStripComboBoxCom.Items.Clear();
+            toolStripComboBoxCom.Items.AddRange(ports);
+        }
     }
 }

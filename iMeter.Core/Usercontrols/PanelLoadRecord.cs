@@ -11,6 +11,7 @@ namespace iMeter.Usercontrols
 {
     public partial class PanelLoadRecord : UserControl
     {
+        public override string Text { get => "负荷记录"; }
         public PanelLoadRecord()
         {
             InitializeComponent();

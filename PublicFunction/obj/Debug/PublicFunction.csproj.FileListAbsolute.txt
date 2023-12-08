@@ -16,3 +16,9 @@ C:\Users\梁越\Desktop\iMeter2_userctrl20181102\PublicFunction\bin\Debug\Public
 C:\Users\梁越\Desktop\iMeter2_userctrl20181102\PublicFunction\obj\Debug\PublicFunction.csproj.CoreCompileInputs.cache
 C:\Users\梁越\Desktop\iMeter2_userctrl20181102\PublicFunction\obj\Debug\PublicFunction.dll
 C:\Users\梁越\Desktop\iMeter2_userctrl20181102\PublicFunction\obj\Debug\PublicFunction.pdb
+D:\CODE\iMeter_winform\PublicFunction\bin\Debug\PublicFunction.dll
+D:\CODE\iMeter_winform\PublicFunction\bin\Debug\PublicFunction.pdb
+D:\CODE\iMeter_winform\PublicFunction\obj\Debug\PublicFunction.csproj.AssemblyReference.cache
+D:\CODE\iMeter_winform\PublicFunction\obj\Debug\PublicFunction.csproj.CoreCompileInputs.cache
+D:\CODE\iMeter_winform\PublicFunction\obj\Debug\PublicFunction.dll
+D:\CODE\iMeter_winform\PublicFunction\obj\Debug\PublicFunction.pdb

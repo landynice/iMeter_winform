@@ -5,17 +5,17 @@ namespace Protocol.Core
 {
     public class Frame645
     {
-        private const int MAXFRAMELEN      = 200;
-        private const int MINFRAMELEN      = 12;
-        private const int OFFSET_START68   = 0;
+        private const int MAXFRAMELEN = 200;
+        private const int MINFRAMELEN = 12;
+        private const int OFFSET_START68 = 0;
         private const int OFFSET_METERADDR = 1;
-        private const int OFFSET_SECOND68  = 7;
-        private const int OFFSET_CTRLNUM   = 8;
-        private const int OFFSET_LEN       = 9;
-        private const int DATAIDLEN        = 4;
-        private const int PSWLEN           = 4;
-        private const int OPRLEN           = 4;
-        private const int ADDRLEN          = 6;
+        private const int OFFSET_SECOND68 = 7;
+        private const int OFFSET_CTRLNUM = 8;
+        private const int OFFSET_LEN = 9;
+        private const int DATAIDLEN = 4;
+        private const int PSWLEN = 4;
+        private const int OPRLEN = 4;
+        private const int ADDRLEN = 6;
 
         #region 645帧定义
         byte[] ByteFrame;
@@ -32,94 +32,96 @@ namespace Protocol.Core
         /// </summary>
         private enum Func
         {
-            ReadData              = 0x11,
-            ReadDataHasFollow     = 0xB1,
-            ReadDataSucc          = 0x91,
-            ReadDataFail          = 0xD1,
+            ReadData = 0x11,
+            ReadDataHasFollow = 0xB1,
+            ReadDataSucc = 0x91,
+            ReadDataFail = 0xD1,
 
-            ReadFollowData        = 0x12,
+            ReadFollowData = 0x12,
             ReadFollowDataHasFollow = 0xB2,
-            ReadFollowDataSucc    = 0x92,
-            ReadFollowDataFail    = 0xD2,
+            ReadFollowDataSucc = 0x92,
+            ReadFollowDataFail = 0xD2,
 
-            WriteData             = 0x14,
-            WriteDataSucc         = 0x94,
-            WriteDataFail         = 0xD4,
+            WriteData = 0x14,
+            WriteDataSucc = 0x94,
+            WriteDataFail = 0xD4,
 
-            ReadAddr              = 0x13,
-            ReadAddrSucc          = 0x93,
+            ReadAddr = 0x13,
+            ReadAddrSucc = 0x93,
 
-            WriteAddr             = 0x15,
-            WriteAddrSucc         = 0x95,
+            WriteAddr = 0x15,
+            WriteAddrSucc = 0x95,
 
-            BroadcastSetTime      = 0x08,
+            BroadcastSetTime = 0x08,
+            BroadcastSetTimeSucc = 0x88,
+            BroadcastSetTimeFail = 0xC8,
 
-            Freeze                = 0x16,
-            FreezeSucc            = 0x96,
-            FreezeFail            = 0xD6,
+            Freeze = 0x16,
+            FreezeSucc = 0x96,
+            FreezeFail = 0xD6,
 
-            ChangeBaudrate        = 0x17,
-            ChangeBaudrateSucc    = 0x97,
-            ChangeBaudrateFail    = 0xD7,
+            ChangeBaudrate = 0x17,
+            ChangeBaudrateSucc = 0x97,
+            ChangeBaudrateFail = 0xD7,
 
-            ChangePassword        = 0x18,
-            ChangePasswordSucc    = 0x98,
-            ChangePasswordFail    = 0xD8,
+            ChangePassword = 0x18,
+            ChangePasswordSucc = 0x98,
+            ChangePasswordFail = 0xD8,
 
-            MaxDemandClear        = 0x19,
-            MaxDemandClearSucc    = 0x99,
-            MaxDemandClearFail    = 0xD9,
+            MaxDemandClear = 0x19,
+            MaxDemandClearSucc = 0x99,
+            MaxDemandClearFail = 0xD9,
 
-            MeterClear            = 0x1A,
-            MeterClearSucc        = 0x9A,
-            MeterClearFail        = 0xDA,
+            MeterClear = 0x1A,
+            MeterClearSucc = 0x9A,
+            MeterClearFail = 0xDA,
 
-            EventClear            = 0x1B,
-            EventClearSucc        = 0x9B,
-            EventClearFail        = 0xDB,
+            EventClear = 0x1B,
+            EventClearSucc = 0x9B,
+            EventClearFail = 0xDB,
 
-            CtrlOrder             = 0x1C,
-            CtrlOrderSucc         = 0x9C,
-            CtrlOrderFail         = 0xDC,
+            CtrlOrder = 0x1C,
+            CtrlOrderSucc = 0x9C,
+            CtrlOrderFail = 0xDC,
 
-            MultifunctionCtrl     = 0x1D,
+            MultifunctionCtrl = 0x1D,
             MultifunctionCtrlSucc = 0x9D,
             MultifunctionCtrlFail = 0xDD,
 
-            SecurityCert          = 0x03,
-            SecurityCertSucc      = 0x83,
-            SecurityCertFail      = 0xC3
+            SecurityCert = 0x03,
+            SecurityCertSucc = 0x83,
+            SecurityCertFail = 0xC3
         }
         private Func func645;
         private enum ErrStyle : byte
         {
-            OtherErr          = 0x01,
-            NoRequestData     = 0x02,
-            PswErrOrNoPwr     = 0x04,
-            CantChgeBaud      = 0x08,
+            OtherErr = 0x01,
+            NoRequestData = 0x02,
+            PswErrOrNoPwr = 0x04,
+            CantChgeBaud = 0x08,
             YearTmZoneNumOver = 0x10,
-            DayTmSegNumOver   = 0x20,
-            TriffNumOver      = 0x40,
-            Hold              = 0x80
+            DayTmSegNumOver = 0x20,
+            TriffNumOver = 0x40,
+            Hold = 0x80
         }
         private enum SerrStyle : ushort
         {
-            OtherErr       = 0x0001,
-            RepeatRechage  = 0x0002,
-            ESAMCertFail   = 0x0004,
-            IdentityFail   = 0x0008,
+            OtherErr = 0x0001,
+            RepeatRechage = 0x0002,
+            ESAMCertFail = 0x0004,
+            IdentityFail = 0x0008,
             ClientNumNoFit = 0x0010,
             RechangeNumErr = 0x0020,
-            BuyElecOver    = 0x0040,
-            Hold1          = 0x0080,
-            Hold2          = 0x0100,
-            Hold3          = 0x0200,
-            Hold4          = 0x0400,
-            Hold5          = 0x0800,
-            Hold6          = 0x1000,
-            Hold7          = 0x2000,
-            Hold8          = 0x4000,
-            Hold9          = 0x8000
+            BuyElecOver = 0x0040,
+            Hold1 = 0x0080,
+            Hold2 = 0x0100,
+            Hold3 = 0x0200,
+            Hold4 = 0x0400,
+            Hold5 = 0x0800,
+            Hold6 = 0x1000,
+            Hold7 = 0x2000,
+            Hold8 = 0x4000,
+            Hold9 = 0x8000
         }
         #region 属性
         /// <summary>
@@ -138,7 +140,7 @@ namespace Protocol.Core
         /// <summary>
         /// 控制码
         /// </summary>
-        public string CtrolNum { get{return hexCtrolNum.ToHexString();} }
+        public string CtrolNum { get { return hexCtrolNum.ToHexString(); } }
         /// <summary>
         /// 控制码
         /// </summary>
@@ -146,7 +148,7 @@ namespace Protocol.Core
         /// <summary>
         /// 数据域长度
         /// </summary>
-        public string DataLength { get{return hexDataLength.ToHexString();} }
+        public string DataLength { get { return hexDataLength.ToHexString(); } }
         /// <summary>
         /// 数据域长度
         /// </summary>
@@ -154,7 +156,7 @@ namespace Protocol.Core
         /// <summary>
         /// 数据标识符
         /// </summary>
-        public string DataId { get{ return hexDataId.ToHexString();} }
+        public string DataId { get { return hexDataId.ToHexString(); } }
         /// <summary>
         /// 数据标识符
         /// </summary>
@@ -163,7 +165,7 @@ namespace Protocol.Core
         /// <summary>
         /// 电表密码
         /// </summary>
-        public string Password { get{return hexPassword.ToHexString();} }
+        public string Password { get { return hexPassword.ToHexString(); } }
         /// <summary>
         /// 电表密码
         /// </summary>
@@ -172,7 +174,7 @@ namespace Protocol.Core
         /// <summary>
         /// 操作者代码
         /// </summary>
-        public string OperateCode { get{return hexOperateCode.ToHexString();} }
+        public string OperateCode { get { return hexOperateCode.ToHexString(); } }
         /// <summary>
         /// 操作者代码
         /// </summary>
@@ -181,7 +183,7 @@ namespace Protocol.Core
         /// <summary>
         /// 数据
         /// </summary>
-        public string Data { get{return hexData.ToHexString();} }
+        public string Data { get { return hexData.ToHexString(); } }
         /// <summary>
         /// 数据
         /// </summary>
@@ -199,7 +201,7 @@ namespace Protocol.Core
             {
                 byte[] hexData = new byte[hexDataLength];
                 if (hexDataLength == 0) return null;
-                for(int i = 0; i < hexDataLength; i++)
+                for (int i = 0; i < hexDataLength; i++)
                 {
                     hexData[i] = Counter.ByteSub33H(ByteFrame[OFFSET_LEN + 1 + i]);
                 }
@@ -209,7 +211,7 @@ namespace Protocol.Core
         /// <summary>
         /// 错误代码
         /// </summary>
-        public string Err { get {return hexErr.ToHexString();} }
+        public string Err { get { return hexErr.ToHexString(); } }
         /// <summary>
         /// 错误代码
         /// </summary>
@@ -226,7 +228,7 @@ namespace Protocol.Core
         /// <summary>
         /// 错误信息
         /// </summary>
-        public string ErrInfo { get; private set; } 
+        public string ErrInfo { get; private set; }
         /// <summary>
         /// 分帧序号
         /// </summary>
@@ -238,7 +240,7 @@ namespace Protocol.Core
         /// <summary>
         /// 校验和
         /// </summary>
-        public string CheckSum { get{return hexCheckSum.ToHexString();} }
+        public string CheckSum { get { return hexCheckSum.ToHexString(); } }
         /// <summary>
         /// 校验和
         /// </summary>
@@ -246,7 +248,7 @@ namespace Protocol.Core
         /// <summary>
         /// 功能
         /// </summary>
-        public string Function { get{ return func645.ToString();} }
+        public string Function { get { return func645.ToString(); } }
         #endregion
 
         /// <summary>
@@ -289,7 +291,7 @@ namespace Protocol.Core
         private void Analyze645Frame()
         {
             if (!Check645Frame()) return;
-            for(int i = 0; i < 6; i++)
+            for (int i = 0; i < 6; i++)
             {
                 _hexMeterAddress[i] = ByteFrame[6 - i];
             }
@@ -303,7 +305,7 @@ namespace Protocol.Core
         /// </summary>
         private void AnalyzeFrameDataReagion()
         {
-            switch(hexCtrolNum)
+            switch (hexCtrolNum)
             {
                 case 0x11://读数据
                     func645 = Func.ReadData;
@@ -378,6 +380,13 @@ namespace Protocol.Core
                     func645 = Func.BroadcastSetTime;
                     DataLen = hexDataLength;
                     GetData(DataLen);
+                    break;
+                case 0x88://广播校时 正常应答
+                    func645 = Func.BroadcastSetTimeSucc;
+                    break;
+                case 0xC8:
+                    func645 = Func.BroadcastSetTimeFail;
+                    GetErr();
                     break;
                 case 0x16://冻结命令
                     func645 = Func.Freeze;
@@ -514,7 +523,7 @@ namespace Protocol.Core
         /// <param name="dataIdStartAddr"></param>
         private void GetDataId(int dataIdStartAddr = OFFSET_LEN + DATAIDLEN)
         {
-            for(int i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 _hexDataId[i] = Counter.ByteSub33H(ByteFrame[dataIdStartAddr - i]);
             }
@@ -525,7 +534,7 @@ namespace Protocol.Core
         /// <param name="passwordStartAddr"></param>
         private void GetPassword(int passwordStartAddr = OFFSET_LEN + DATAIDLEN + PSWLEN)
         {
-            for(int i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 _hexPassword[i] = Counter.ByteSub33H(ByteFrame[passwordStartAddr - i]);
             }
@@ -562,15 +571,15 @@ namespace Protocol.Core
             hexErr = Counter.ByteSub33H(ByteFrame[FrameLen - 3]);
             switch (hexErr)
             {
-                case (byte)ErrStyle.OtherErr:          ErrInfo = "其他错误";         break;
-                case (byte)ErrStyle.NoRequestData:     ErrInfo = "无请求数据";       break;
-                case (byte)ErrStyle.PswErrOrNoPwr:     ErrInfo = "密码错/未授权";    break;
-                case (byte)ErrStyle.CantChgeBaud :     ErrInfo = "通信速率不能更改"; break;
-                case (byte)ErrStyle.YearTmZoneNumOver: ErrInfo = "年时区数超";       break;
-                case (byte)ErrStyle.DayTmSegNumOver:   ErrInfo = "日时段数超";       break;
-                case (byte)ErrStyle.TriffNumOver:      ErrInfo = "费率数超";         break;
-                case (byte)ErrStyle.Hold:              ErrInfo = "保留";             break;
-                default:                               ErrInfo = "ERR_wrong";        break;
+                case (byte)ErrStyle.OtherErr: ErrInfo = "其他错误"; break;
+                case (byte)ErrStyle.NoRequestData: ErrInfo = "无请求数据"; break;
+                case (byte)ErrStyle.PswErrOrNoPwr: ErrInfo = "密码错/未授权"; break;
+                case (byte)ErrStyle.CantChgeBaud: ErrInfo = "通信速率不能更改"; break;
+                case (byte)ErrStyle.YearTmZoneNumOver: ErrInfo = "年时区数超"; break;
+                case (byte)ErrStyle.DayTmSegNumOver: ErrInfo = "日时段数超"; break;
+                case (byte)ErrStyle.TriffNumOver: ErrInfo = "费率数超"; break;
+                case (byte)ErrStyle.Hold: ErrInfo = "保留"; break;
+                default: ErrInfo = "ERR_wrong"; break;
             }
         }
         /// <summary>
@@ -579,30 +588,30 @@ namespace Protocol.Core
         private void GetSerr()
         {
             UInt16 serr = 0;
-            for(int i = 0; i < 2; i++)
+            for (int i = 0; i < 2; i++)
             {
                 _hexSerr[i] = Counter.ByteSub33H(ByteFrame[FrameLen - 3 - i]);
             }
             serr = (ushort)(((ushort)_hexSerr[0] << 8) + _hexSerr[1]);
             switch (serr)
             {
-                case (ushort)SerrStyle.OtherErr:       ErrInfo = "其他错误";       break;
-                case (ushort)SerrStyle.RepeatRechage:  ErrInfo = "重复充值";       break;
-                case (ushort)SerrStyle.ESAMCertFail:   ErrInfo = "ESAM验证失败";   break;
-                case (ushort)SerrStyle.IdentityFail:   ErrInfo = "身份认证失败";   break;
+                case (ushort)SerrStyle.OtherErr: ErrInfo = "其他错误"; break;
+                case (ushort)SerrStyle.RepeatRechage: ErrInfo = "重复充值"; break;
+                case (ushort)SerrStyle.ESAMCertFail: ErrInfo = "ESAM验证失败"; break;
+                case (ushort)SerrStyle.IdentityFail: ErrInfo = "身份认证失败"; break;
                 case (ushort)SerrStyle.ClientNumNoFit: ErrInfo = "客户编号不匹配"; break;
-                case (ushort)SerrStyle.RechangeNumErr: ErrInfo = "充值次数错误";   break;
-                case (ushort)SerrStyle.BuyElecOver:    ErrInfo = "购电超囤积";     break;
-                case (ushort)SerrStyle.Hold1:          ErrInfo = "保留";           break;
-                case (ushort)SerrStyle.Hold2:          ErrInfo = "保留";           break;
-                case (ushort)SerrStyle.Hold3:          ErrInfo = "保留";           break;
-                case (ushort)SerrStyle.Hold4:          ErrInfo = "保留";           break;
-                case (ushort)SerrStyle.Hold5:          ErrInfo = "保留";           break;
-                case (ushort)SerrStyle.Hold6:          ErrInfo = "保留";           break;
-                case (ushort)SerrStyle.Hold7:          ErrInfo = "保留";           break;
-                case (ushort)SerrStyle.Hold8:          ErrInfo = "保留";           break;
-                case (ushort)SerrStyle.Hold9:          ErrInfo = "保留";           break;
-                default:                               ErrInfo = "SERR_wrong";     break;
+                case (ushort)SerrStyle.RechangeNumErr: ErrInfo = "充值次数错误"; break;
+                case (ushort)SerrStyle.BuyElecOver: ErrInfo = "购电超囤积"; break;
+                case (ushort)SerrStyle.Hold1: ErrInfo = "保留"; break;
+                case (ushort)SerrStyle.Hold2: ErrInfo = "保留"; break;
+                case (ushort)SerrStyle.Hold3: ErrInfo = "保留"; break;
+                case (ushort)SerrStyle.Hold4: ErrInfo = "保留"; break;
+                case (ushort)SerrStyle.Hold5: ErrInfo = "保留"; break;
+                case (ushort)SerrStyle.Hold6: ErrInfo = "保留"; break;
+                case (ushort)SerrStyle.Hold7: ErrInfo = "保留"; break;
+                case (ushort)SerrStyle.Hold8: ErrInfo = "保留"; break;
+                case (ushort)SerrStyle.Hold9: ErrInfo = "保留"; break;
+                default: ErrInfo = "SERR_wrong"; break;
             }
         }
         /// <summary>
@@ -657,7 +666,7 @@ namespace Protocol.Core
             }
             ByteFrame = tmpFrm;
 
-            if (ByteFrame[OFFSET_LEN] != (FrameLen - 12) )
+            if (ByteFrame[OFFSET_LEN] != (FrameLen - 12))
             {
                 IsValidFrame = false;
                 return false;
@@ -668,7 +677,7 @@ namespace Protocol.Core
             {
                 checkSum += ByteFrame[i];
             }
-            if(ByteFrame[FrameLen - 2] != checkSum)
+            if (ByteFrame[FrameLen - 2] != checkSum)
             {
                 IsValidFrame = false;
                 return false;

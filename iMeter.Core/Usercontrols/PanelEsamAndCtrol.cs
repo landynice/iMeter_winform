@@ -7,6 +7,7 @@ namespace iMeter
 {
     public partial class PanelEsamAndCtrol : UserControl
     {
+        public override string Text { get => "ESAM/费控"; }
         private Timer timerPCTime = new Timer();
         public PanelEsamAndCtrol()
         {

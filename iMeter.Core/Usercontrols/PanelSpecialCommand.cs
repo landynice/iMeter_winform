@@ -7,6 +7,7 @@ namespace iMeter
 {
     public partial class PanelSpecialCommand : UserControl
     {
+        public override string Text { get => "特殊命令"; }
         Timer timerPCTime = new Timer();
 
         public PanelSpecialCommand()
@@ -70,6 +71,12 @@ namespace iMeter
             if (rbPeriodChangePulse.Checked) strData = "02";
 
             p645.MultFunOutPutCtrl(strData);
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string sendFrm = textBox2.Text.Replace("\r\n", "").Replace(" ", "");
+            Protocol645 p645 = new Protocol645();
+            p645.SendAndRecCustom(sendFrm, out _, out _);
         }
         #endregion
 
@@ -226,23 +233,38 @@ namespace iMeter
         #region 复旦微
         private void button21_Click(object sender, EventArgs e)//复旦微：电表初始化
         {
-            string result = null;
             Protocol645 p645 = new Protocol645();
-            p645.FDWBroad("1413", "8054", out result);
+            p645.FDWBroad("1413", "8054", out string result);
         }
 
         private void button24_Click(object sender, EventArgs e)//复旦微：厂内模式使能命令
         {
-            string result = null;
             Protocol645 p645 = new Protocol645();
-            p645.FDWBroad("550F", "FF", out result);
+            p645.FDWBroad("550F", "FF", out string result);
         }
 
         private void button25_Click(object sender, EventArgs e)//复旦微：退出厂内模式
         {
-            string result = null;
             Protocol645 p645 = new Protocol645();
-            p645.FDWBroad("AA0F", "00", out result);
+            p645.FDWBroad("AA0F", "00", out string result);
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Protocol645 p645 = new Protocol645();
+            p645.FDW_1E("3EEEEE05", out string result);
+            textBox1.Text = result.Substring(0, (int)numericUpDown1.Value);
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Protocol645 p645 = new Protocol645();
+            p645.FDW_1E("3EEFEF05", out string result);
+            textBox1.Text = result.Substring(0, (int)numericUpDown1.Value);
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string sendFrm = "68AAAAAAAAAAAA681F01BBA716";
+            Protocol645 p645 = new Protocol645();
+            p645.SendAndRecCustom(sendFrm, out _, out _);
         }
         #endregion
 
@@ -334,14 +356,18 @@ namespace iMeter
                 MessageBox.Show("设置失败！");
             }
         }
-        
+
         private void btnInit_Click(object sender, EventArgs e)
         {
             //string frm = "68 AA AA AA AA AA AA 68 04 0A 43 F3 33 7D 85 87 33 34 3A CA 37 16";
             //Protocol645 p645 = new Protocol645();
             //Protocol645.SendAndReceiveFrame(frm.Replace(" ",""));
         }
+
+
+
         #endregion
+
 
     }
 }

@@ -8,6 +8,7 @@ namespace iMeter
 {
     public partial class PanelInfinitTest : UserControl
     {
+        public override string Text { get => "多次读取"; }
         public PanelInfinitTest()
         {
             InitializeComponent();

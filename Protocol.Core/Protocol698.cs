@@ -1,12 +1,67 @@
 ﻿using System.Collections.Generic;
 using PublicFunction;
 using Communication.Core;
+using System.Linq.Expressions;
+using Protocol.Core._698.DataType;
 
 namespace Protocol.Core
 {
-    public class Protocol698:IProtocol
+    public class Protocol698 : IProtocol
     {
         public static string Addr { get; set; }
+
+        private static string _CA = "A1";
+        /// <summary>
+        /// 客户机地址：AZ主站，0Z终端
+        /// </summary>
+        public static string CA
+        {
+            get { return _CA; }
+            set
+            {
+                if (value.Length >= 2)
+                {
+                    _CA = value.Substring(0, 2);
+                }
+                else
+                {
+                    _CA = value.PadLeft(2, '0');
+                }
+            }
+        }
+        public static string str_CONNECT_Request = "02";
+        public static string str_RELEASE_Request = "03";
+        public static string str_GET_Request = "05";
+        public static string str_SET_Request = "06";
+        public static string str_ACTION_Request = "07";
+
+        public static string str_GetRequestNormal = "01";
+        public static string str_GetRequestNormalList = "02";
+
+
+        public static class GET
+        {
+            public static byte REQUEST
+            {
+                get { return 0x05; }
+            }
+            public static class Request
+            {
+                public static string str
+                {
+                    get { return "05"; }
+                }
+
+                public static class GetRequestNormal
+                {
+                    public static string str
+                    {
+                        get { return "0501"; }
+                    }
+                }
+            }
+        }
+
         #region 校验
         private const ushort PPPINITFCS16 = 0xffff;     //Initial FCS value
         private const ushort PPPGOODFCS16 = 0xf0b8;     // Good final FCS value
@@ -63,7 +118,7 @@ namespace Protocol.Core
         public static ushort pppfcs16(string frm)
         {
             frm = frm.Replace(" ", "").Replace("\r", "").Replace("\n", "");
-            int len = frm.Length/2;
+            int len = frm.Length / 2;
             ushort fcs = PPPINITFCS16;
             byte[] data = new byte[len];
             Transfer.StrConvertToByte(frm, out data);
@@ -72,8 +127,8 @@ namespace Protocol.Core
             {
                 fcs = (ushort)((fcs >> 8) ^ fcstab[((fcs ^ b) & 0xff)]);
             }
-            
-            return (ushort)(fcs^0xffff);
+
+            return (ushort)(fcs ^ 0xffff);
         }
 
         /// <summary>
@@ -150,7 +205,7 @@ namespace Protocol.Core
         /// <param name="dataType">数据类型代码</param>
         /// <returns>数据类型</returns>
         public static string GetDataType(int dataType)
-        { 
+        {
             Dictionary<int, string> dataTypeDict = new Dictionary<int, string>();
             dataTypeDict.Add(00, "NULL");
             dataTypeDict.Add(01, "array");
@@ -192,7 +247,7 @@ namespace Protocol.Core
             dataTypeDict.Add(94, "SID_MAC");
             dataTypeDict.Add(95, "COMDCB");
             dataTypeDict.Add(96, "RCSD");
-            if(dataTypeDict.ContainsKey(dataType))
+            if (dataTypeDict.ContainsKey(dataType))
                 return dataTypeDict[dataType];
             else
                 return null;
@@ -243,7 +298,7 @@ namespace Protocol.Core
             DARTypeDict.Add(32, "时间标签无效");
             DARTypeDict.Add(33, "请求超时");
             DARTypeDict.Add(255, "其它");
-            if(DARTypeDict.ContainsKey(darType))
+            if (DARTypeDict.ContainsKey(darType))
                 return DARTypeDict[darType];
             else
                 return null;
@@ -272,13 +327,13 @@ namespace Protocol.Core
 
         //#endregion
 
-        public string SendAndRecv(string tx)
+        public string SendAndRecv(string tx, string portName = "default", int baudRate = 9600)
         {
-            return base.SendAndRec(tx);
+            return base.SendAndRec(tx, portName, baudRate);
         }
         public string ReadAddr()
         {
-            string txString = "6817004345AAAAAAAAAAAA11534E0501024001020000BB0B16";
+            string txString = $"6817004345AAAAAAAAAAAA{_CA}D8FB0501024001020000BB0B16";
             //返回:68 21 00 C3 45 11 11 11 11 11 11 11 7D E0 85 01 02 40 01 02 00 01 09 06 11 11 11 11 11 11 00 00 7C 3A 16 
             string ret = string.Empty;
             string res = SendAndRec(txString);
@@ -293,13 +348,41 @@ namespace Protocol.Core
             return ret;
         }
 
-        public byte[] ReadData(string OAD)
+        public byte[] ReadData(string OAD, string portName = "default", int baudRate = 9600)
         {
-            string txString = string.Empty;
-            txString = "68" + "L1L2" + "43" + (Addr.Length / 2 - 1).ToString("x2") + Addr + "10";
+            byte[] ret = { };
+            string res = Read(OAD, portName, baudRate);
+            if (res != null && res.Length > 0)
+            {
+                Frame698 frm = new Frame698(res);
+                if (frm.IsValidFrame)
+                {
+                    //ret = new byte[frm.Apdu.Length];
+                    ret = frm.Apdu;
+                }
+            }
+            return ret;
+        }
+        public string ReadDataReturnStrApdu(string OAD, string portName = "default", int baudRate = 9600)
+        {
+            string res = Read(OAD, portName, baudRate);
+            string ret = "";
+            if (res != null && res.Length > 0)
+            {
+                Frame698 frm = new Frame698(res);
+                if (frm.IsValidFrame)
+                {
+                    ret = frm.ApduStr;
+                }
+            }
+            return ret;
+        }
+        public string Read(string OAD, string portName = "default", int baudRate = 9600)
+        {
+            string txString = "68" + "L1L2" + "43" + (Addr.Length / 2 - 1).ToString("x2") + Addr + _CA;
             string hString = txString.Substring(2);
             txString += "H_CS";
-            txString += "05";//读
+            txString += GET.Request.str;//读
             if (OAD.Length / 8 > 1)
             {
                 txString += "02";//多个OAD读
@@ -325,15 +408,35 @@ namespace Protocol.Core
             string fString = txString.Substring(2, txString.Length - 8);
             txString = txString.Replace("F_CS", GetCS(fString));
 
-            byte[] ret = {};
-            string res = SendAndRec(txString);
+            return SendAndRec(txString, portName, baudRate);
+        }
+        public string ReadByApduReturnApdu(string apdu, string portName = "default", int baudRate = 9600)
+        {
+            string txString = "68" + "L1L2" + "43" + (Addr.Length / 2 - 1).ToString("x2") + Addr + _CA;
+            string hString = txString.Substring(2);
+            txString += "H_CS";
+            txString += apdu;
+
+            txString += "F_CS";
+            txString += "16";
+
+            int frmLen = txString.Length / 2 - 2;
+            txString = txString.Replace("L1L2", (frmLen & 0x00ff).ToString("X2") + (frmLen >> 8).ToString("X2"));
+
+            hString = hString.Replace("L1L2", (frmLen & 0x00ff).ToString("X2") + (frmLen >> 8).ToString("X2"));
+            txString = txString.Replace("H_CS", GetCS(hString));
+
+            string fString = txString.Substring(2, txString.Length - 8);
+            txString = txString.Replace("F_CS", GetCS(fString));
+
+            string res = SendAndRec(txString, portName, baudRate);
+            string ret = "";
             if (res != null && res.Length > 0)
             {
                 Frame698 frm = new Frame698(res);
                 if (frm.IsValidFrame)
                 {
-                    //ret = new byte[frm.Apdu.Length];
-                    ret = frm.Apdu;
+                    ret = frm.ApduStr;
                 }
             }
             return ret;
@@ -351,7 +454,7 @@ namespace Protocol.Core
         public static byte[] SerialNo
         {
             get { return _serialNo; }
-            set { _serialNo = value;}
+            set { _serialNo = value; }
         }
 
         private static int _asctr;
@@ -469,13 +572,13 @@ namespace Protocol.Core
         {
             CONNECT_Request = 0x02,
             RELEASE_Request = 0x03,
-            GET_Request     = 0x05,
-            SET_Request     = 0x06,
-            ACTION_Request  = 0x07,
+            GET_Request = 0x05,
+            SET_Request = 0x06,
+            ACTION_Request = 0x07,
             REPORT_Response = 0x08,
-            PROXY_Request   = 0x09,
-            ERROR_Response  = 0x6E,
-            SECURITY_Request= 0x10
+            PROXY_Request = 0x09,
+            ERROR_Response = 0x6E,
+            SECURITY_Request = 0x10
         }
 
 
@@ -509,7 +612,7 @@ namespace Protocol.Core
             frm = frm.Replace("AF", (Addr.Length / 2 - 1).ToString("X2"));
             hStr = hStr.Replace("AF", (Addr.Length / 2 - 1).ToString("X2"));
             frm = frm.Replace("HCS", GetCS(hStr));
-            string fStr = frm.Substring(2, 2*(cnt - 2));
+            string fStr = frm.Substring(2, 2 * (cnt - 2));
             frm = frm.Replace("FCS", GetCS(fStr));
 
             return frm;
@@ -552,5 +655,5 @@ namespace Protocol.Core
     }
 
 
-    
+
 }
