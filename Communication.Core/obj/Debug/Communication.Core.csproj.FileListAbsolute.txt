@@ -43,3 +43,12 @@ D:\CODE\iMeter_winform\Communication.Core\obj\Debug\Communication.Core.csproj.Co
 D:\CODE\iMeter_winform\Communication.Core\obj\Debug\Communication.Core.csproj.CopyComplete
 D:\CODE\iMeter_winform\Communication.Core\obj\Debug\Communication.Core.dll
 D:\CODE\iMeter_winform\Communication.Core\obj\Debug\Communication.Core.pdb
+C:\Users\landy\Source\Repos\iMeter_winform\Communication.Core\bin\Debug\Communication.Core.dll
+C:\Users\landy\Source\Repos\iMeter_winform\Communication.Core\bin\Debug\Communication.Core.pdb
+C:\Users\landy\Source\Repos\iMeter_winform\Communication.Core\bin\Debug\PublicFunction.dll
+C:\Users\landy\Source\Repos\iMeter_winform\Communication.Core\bin\Debug\PublicFunction.pdb
+C:\Users\landy\Source\Repos\iMeter_winform\Communication.Core\obj\Debug\Communication.Core.csproj.AssemblyReference.cache
+C:\Users\landy\Source\Repos\iMeter_winform\Communication.Core\obj\Debug\Communication.Core.csproj.CoreCompileInputs.cache
+C:\Users\landy\Source\Repos\iMeter_winform\Communication.Core\obj\Debug\Communication.Core.csproj.CopyComplete
+C:\Users\landy\Source\Repos\iMeter_winform\Communication.Core\obj\Debug\Communication.Core.dll
+C:\Users\landy\Source\Repos\iMeter_winform\Communication.Core\obj\Debug\Communication.Core.pdb
