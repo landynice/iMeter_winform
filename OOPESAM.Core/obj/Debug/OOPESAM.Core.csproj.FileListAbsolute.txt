@@ -80,3 +80,14 @@ D:\CODE\iMeter_winform\OOPESAM.Core\obj\Debug\OOPESAM.Core.csproj.AssemblyRefere
 D:\CODE\iMeter_winform\OOPESAM.Core\obj\Debug\OOPESAM.Core.csproj.CoreCompileInputs.cache
 D:\CODE\iMeter_winform\OOPESAM.Core\obj\Debug\OOPESAM.Core.dll
 D:\CODE\iMeter_winform\OOPESAM.Core\obj\Debug\OOPESAM.Core.pdb
+C:\Users\landy\Source\Repos\iMeter_winform\OOPESAM.Core\bin\Debug\MFC42D.DLL
+C:\Users\landy\Source\Repos\iMeter_winform\OOPESAM.Core\bin\Debug\MFCN42D.DLL
+C:\Users\landy\Source\Repos\iMeter_winform\OOPESAM.Core\bin\Debug\MFCO42D.DLL
+C:\Users\landy\Source\Repos\iMeter_winform\OOPESAM.Core\bin\Debug\MSVCRTD.DLL
+C:\Users\landy\Source\Repos\iMeter_winform\OOPESAM.Core\bin\Debug\SocketApi.dll
+C:\Users\landy\Source\Repos\iMeter_winform\OOPESAM.Core\bin\Debug\OOPESAM.Core.dll
+C:\Users\landy\Source\Repos\iMeter_winform\OOPESAM.Core\bin\Debug\OOPESAM.Core.pdb
+C:\Users\landy\Source\Repos\iMeter_winform\OOPESAM.Core\obj\Debug\OOPESAM.Core.csproj.AssemblyReference.cache
+C:\Users\landy\Source\Repos\iMeter_winform\OOPESAM.Core\obj\Debug\OOPESAM.Core.csproj.CoreCompileInputs.cache
+C:\Users\landy\Source\Repos\iMeter_winform\OOPESAM.Core\obj\Debug\OOPESAM.Core.dll
+C:\Users\landy\Source\Repos\iMeter_winform\OOPESAM.Core\obj\Debug\OOPESAM.Core.pdb

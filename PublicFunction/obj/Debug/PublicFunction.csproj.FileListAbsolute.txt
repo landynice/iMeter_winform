@@ -22,3 +22,9 @@ D:\CODE\iMeter_winform\PublicFunction\obj\Debug\PublicFunction.csproj.AssemblyRe
 D:\CODE\iMeter_winform\PublicFunction\obj\Debug\PublicFunction.csproj.CoreCompileInputs.cache
 D:\CODE\iMeter_winform\PublicFunction\obj\Debug\PublicFunction.dll
 D:\CODE\iMeter_winform\PublicFunction\obj\Debug\PublicFunction.pdb
+C:\Users\landy\Source\Repos\iMeter_winform\PublicFunction\bin\Debug\PublicFunction.dll
+C:\Users\landy\Source\Repos\iMeter_winform\PublicFunction\bin\Debug\PublicFunction.pdb
+C:\Users\landy\Source\Repos\iMeter_winform\PublicFunction\obj\Debug\PublicFunction.csproj.AssemblyReference.cache
+C:\Users\landy\Source\Repos\iMeter_winform\PublicFunction\obj\Debug\PublicFunction.csproj.CoreCompileInputs.cache
+C:\Users\landy\Source\Repos\iMeter_winform\PublicFunction\obj\Debug\PublicFunction.dll
+C:\Users\landy\Source\Repos\iMeter_winform\PublicFunction\obj\Debug\PublicFunction.pdb
